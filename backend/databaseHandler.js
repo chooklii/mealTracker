@@ -9,9 +9,12 @@ const connection = mysql.createConnection({
 
  function getAllMeals(){
     try{
-        console.log(config.HOST)
-        connection.connect()
-        connection.end()
+        connection.query(
+            "SELECT * FROM mealtracker.meals", function(err, results, fields){
+                if(err) throw err;
+                console.log(results, fields)
+            }
+        )
     }catch(err){
         console.error(err)
     }
