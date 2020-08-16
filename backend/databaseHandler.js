@@ -48,7 +48,7 @@ function createNewMeal(name, description){
 function updateMeal(name, description, id){
     try{
         connection.query(
-            `UPDATE mealtracker.meals SET name = ${name}, SET description = ${description} WHERE id = ${id}`
+            `UPDATE mealtracker.meals SET name = '${name}', description = '${description}' WHERE id = ${id}`
         )
     }catch(err){
         console.log(err)
@@ -57,6 +57,13 @@ function updateMeal(name, description, id){
 
 function updateEaten(id){
     try{
+        connection.query(
+            `SELECT amount FROM mealtracker.meals WHERE id = '${id}'`, function(err, results, fields){
+                if(err) throw err;
+                console.log("Result",results)
+            }
+        )
+
         connection.query(
             `UPDATE mealtracker.meals SET amount = amount +1 WHERE id = '${id}'`
         )
