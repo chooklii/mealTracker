@@ -5,8 +5,9 @@ module.exports = function(app){
 
     // get all meals available
     app.get("/meals", async function(req, res){
-        const response = databaseHandler.getAllMeals()
-        res.sendStatus(200)
+        await databaseHandler.getAllMeals().then(result => {
+            res.end(result)
+        })
     })
 
     // get all meals that match name
