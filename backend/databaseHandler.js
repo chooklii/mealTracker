@@ -37,7 +37,7 @@ function getMealsByName(name){
 function createNewMeal(name, description){
     try{
         connection.query(
-            `INSERT INTO mealtracker.meals (name, description) VALUES( ${name}, ${description})`
+            `INSERT INTO mealtracker.meals (name, description) VALUES( '${name}', '${description}')`
         )
     }catch(err){
         console.log(err)
