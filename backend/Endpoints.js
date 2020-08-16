@@ -6,6 +6,7 @@ module.exports = function(app){
     // get all meals available
     app.get("/meals", function(req, res){
         const result = databaseHandler.getAllMeals()
+        console.log(result)
         res.write(result)
         res.end()
     })
@@ -13,6 +14,7 @@ module.exports = function(app){
     // get all meals that match name
     app.get("/mealsByName", function(req, res){
         const result = databaseHandler.getMealsByName(req.query.name)
+        console.log(result)
         res.write(result)
         res.end
     })
