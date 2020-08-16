@@ -12,8 +12,7 @@ const connection = mysql.createConnection({
         connection.query(
             "SELECT * FROM mealtracker.meals", function(err, results, fields){
                 if(err) throw err;
-                const result = Object.values(JSON.parse(JSON.stringify(results)))
-                return result
+                return new Promise.resolve(Object.values(JSON.parse(JSON.stringify(results))))
             }
         )
     }catch(err){
