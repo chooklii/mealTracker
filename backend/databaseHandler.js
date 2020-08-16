@@ -12,8 +12,8 @@ const connection = mysql.createConnection({
         connection.query(
             "SELECT * FROM mealtracker.meals", function(err, results, fields){
                 if(err) throw err;
-                const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
-                console.log("Result",resultArray)
+                return Object.values(JSON.parse(JSON.stringify(results)))
+            
             }
         )
     }catch(err){
@@ -26,8 +26,7 @@ function getMealsByName(name){
         connection.query(
             `SELECT * FROM mealtracker.meals WHERE name like '% ${name} %'`, function(err, results, fields){
                 if(err) throw err;
-                const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
-                console.log("Result",resultArray)
+                return Object.values(JSON.parse(JSON.stringify(results)))
             }
         )
     }catch(err){
@@ -59,16 +58,17 @@ function updateMeal(name, description, id){
 
 function updateEaten(id){
     try{
+        var newAmount = 1
         connection.query(
             `SELECT amount FROM mealtracker.meals WHERE id = '${id}'`, function(err, results, fields){
                 if(err) throw err;
                 const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
-                console.log("Result",resultArray)
+                const amount = resultArray[0].amount
+                newAmount = amount != null ? amount +1 : 1
             }
         )
-
         connection.query(
-            `UPDATE mealtracker.meals SET amount = amount +1 WHERE id = ${id}`
+            `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${id}`
         )
     }catch(err){
         console.log(err)

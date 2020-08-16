@@ -5,15 +5,14 @@ module.exports = function(app){
 
     // get all meals available
     app.get("/meals", function(req, res){
-        databaseHandler.getAllMeals()
-        res.sendStatus(200)
+        const result = databaseHandler.getAllMeals()
+        res.send(result)
     })
 
     // get all meals that match name
     app.get("/mealsByName", function(req, res){
-        console.log(req.query.name)
-        databaseHandler.getMealsByName(req.query.name)
-        res.send(req.query.name)
+        const result = databaseHandler.getMealsByName(req.query.name)
+        res.send(result)
     })
 
     // insert new Meal
