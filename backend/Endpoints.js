@@ -4,7 +4,7 @@ const databaseHandler = require("./databaseHandler")
 module.exports = function(app){
 
     // get all meals available
-    app.get("/meals", function(req, res){
+    app.get("/meals", async function(req, res){
         const response = await databaseHandler.getAllMeals()
             console.log(response)
             res.write(response)
