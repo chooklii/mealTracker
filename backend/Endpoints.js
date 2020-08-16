@@ -5,12 +5,12 @@ module.exports = function(app){
 
     // get all meals available
     app.get("/meals", function(req, res){
-        databaseHandler.getAllMeals().then(function(result){
-            console.log(result)
-            res.write(result)
+        databaseHandler.getAllMeals().then(function(response){
+            console.log(response)
+            res.write(response)
             res.end()
         }).catch(function(error){
-            res.sendStatus(500)
+            res.sendStatus(400)
         })
     })
 
