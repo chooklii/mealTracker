@@ -12,7 +12,8 @@ const connection = mysql.createConnection({
         connection.query(
             "SELECT * FROM mealtracker.meals", function(err, results, fields){
                 if(err) throw err;
-                return Object.values(JSON.parse(JSON.stringify(results)))
+                const result = Object.values(JSON.parse(JSON.stringify(results)))
+                return result
             }
         )
     }catch(err){
@@ -25,7 +26,8 @@ function getMealsByName(name){
         connection.query(
             `SELECT * FROM mealtracker.meals WHERE name like '% ${name} %'`, function(err, results, fields){
                 if(err) throw err;
-                return Object.values(JSON.parse(JSON.stringify(results)))
+                const result = Object.values(JSON.parse(JSON.stringify(results)))
+                return result
             }
         )
     }catch(err){
