@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
         connection.query(
             "SELECT * FROM mealtracker.meals", function(err, results, fields){
                 if(err) throw err;
-                console.log(results, fields)
+                console.log("Result",results)
             }
         )
     }catch(err){
@@ -20,7 +20,57 @@ const connection = mysql.createConnection({
     }
 }
 
+function getMealsByName(name){
+    try{
+        connection.query(
+            `SELECT * FROM mealtracker.meals WHERE name like % ${name} %`, function(err, results, fields){
+                if(err) throw err;
+                console.log("Result",results)
+            }
+        )
+    }catch(err){
+        console.error(err)
+    }
+
+}
+
+function createNewMeal(name, description){
+    try{
+        connection.query(
+            `INSERT INTO mealtracker.meals (name, description, amount) VALUES( ${name}, ${description}, 0)`
+        )
+    }catch(err){
+        console.log(err)
+    }
+
+}
+
+function updateMeal(name, description){
+    try{
+        connection.query(
+            `UPDATE mealtracker.meals SET name = ${name}, SET description = ${description} WHERE id = ${id}`
+        )
+    }catch(err){
+        console.log(err)
+    }
+}
+
+function updateEaten(id){
+    try{
+        connection.query(
+            `UPDATE mealtracker.meals SET amount = amount +1 WHERE id = ${id}`
+        )
+    }catch(err){
+        console.log(err)
+    }
+
+}
+
 module.exports = {
-    getAllMeals
+    getAllMeals,
+    getMealsByName,
+    createNewMeal,
+    updateMeal,
+    updateEaten
 }
 
