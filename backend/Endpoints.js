@@ -11,6 +11,7 @@ module.exports = function(app){
 
     // get all meals that match name
     app.get("/mealsByName", function(req, res){
+        console.log(req.query.name)
         databaseHandler.getMealsByName(req.query.name)
         res.send(req.query.name)
     })
@@ -35,7 +36,7 @@ module.exports = function(app){
             const name = body.name
             const description = body.description
             const id = body.id
-            databaseHandler.updateMeal(name, description)
+            databaseHandler.updateMeal(name, description, id)
             res.send(200)
         }catch(err){
             res.sendStatus(400)
