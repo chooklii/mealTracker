@@ -5,10 +5,13 @@ module.exports = function(app){
 
     // get all meals available
     app.get("/meals", function(req, res){
-        const result = databaseHandler.getAllMeals()
-        console.log(result)
-        res.write(result)
-        res.end()
+        databaseHandler.getAllMeals().then(function(result){
+            console.log(result)
+            res.write(result)
+            res.end()
+        }).catch(function(error){
+            res.sendStatus(500)
+        })
     })
 
     // get all meals that match name
