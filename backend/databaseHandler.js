@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
 function getMealsByName(name){
     try{
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE name like % ${name} %`, function(err, results, fields){
+            `SELECT * FROM mealtracker.meals WHERE name like '% ${name} %'`, function(err, results, fields){
                 if(err) throw err;
                 console.log("Result",results)
             }
@@ -45,7 +45,7 @@ function createNewMeal(name, description){
 
 }
 
-function updateMeal(name, description){
+function updateMeal(name, description, id){
     try{
         connection.query(
             `UPDATE mealtracker.meals SET name = ${name}, SET description = ${description} WHERE id = ${id}`
@@ -58,7 +58,7 @@ function updateMeal(name, description){
 function updateEaten(id){
     try{
         connection.query(
-            `UPDATE mealtracker.meals SET amount = amount +1 WHERE id = ${id}`
+            `UPDATE mealtracker.meals SET amount = amount +1 WHERE id = '${id}'`
         )
     }catch(err){
         console.log(err)
