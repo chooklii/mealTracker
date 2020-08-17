@@ -30,8 +30,9 @@ module.exports = function(app){
     // get recommendations
     app.get("/recommendations", async function(req, res){
         try{
-            const date = new Date
-            const currentMonth = helper.convertMonthIDtoString(date.getMonth)
+            const date = new Date()
+            console.log(date.getMonth())
+            const currentMonth = helper.convertMonthIDtoString(date.getMonth())
             const result = await databaseHandler.getRecommendation(currentMonth)
             res.json(result)
         } catch(error){
