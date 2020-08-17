@@ -1,0 +1,382 @@
+/*
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+.header-container{
+	text-align: center;
+}
+
+.body-container{
+	text-align: center;
+}
+
+@media only screen and (min-width: 1201px){
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+	#mobileMenuWrapper{
+		display: none
+	}
+
+	#lastSideButton{
+		float: left;
+		min-height: 100px;
+		cursor: pointer;
+		background-color: Transparent;
+		background-repeat:no-repeat;
+		border: none;
+		outline:none;
+		position: relative;
+		width: 10%;
+	}
+
+	#nextSideButton{
+		float: right;
+		min-height: 100px;
+		cursor: pointer;
+		background-color: Transparent;
+		background-repeat:no-repeat;
+		border: none;
+		outline:none;
+		position: relative;
+		width: 10%;
+	}
+
+	#iFrameVideo{
+		margin-top: -13%;
+		width: 560px;
+		height: 315px
+	}
+
+	#LogoText{
+		font-size: 80px;
+	}
+
+	body
+	{
+	}
+
+	body,input,textarea,select
+	{
+	}
+
+	header
+	{
+		margin-bottom: 1.6em;
+	}
+
+		header h2
+		{
+			font-size: 3.4em;
+		}
+
+		header .byline
+		{
+			font-size: 1.7em;
+		}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+		display: flex;
+	}
+
+	.homepage #header
+	{
+		padding: 16em 0 12em 0;
+	}
+
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+
+	#main
+	{
+		padding: 6em 0em;
+	}
+
+	.homepage #content header h2
+	{
+		padding: 0.70em 0em;
+		font-size: 2.2em;
+	}
+
+	#sidebar h2
+	{
+		font-size: 2.4em;
+	}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+
+	#footer
+	{
+		padding: 6em 0em;
+	}
+
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+
+	#featured
+	{
+		padding: 6em 0em;
+	}
+
+	#featured h3
+	{
+		padding: 1.5em 0em;
+		font-size: 1.6em;
+	}
+
+	#featured header
+	{
+		margin-bottom: 3em;
+	}
+
+	#featured p
+	{
+		line-height: 2em;
+		font-size: 1.2em;
+	}
+
+/*********************************************************************************/
+/* Tweet                                                                         */
+/*********************************************************************************/
+
+	#tweet
+	{
+		padding: 6em 0em;
+	}
+
+	#tweet blockquote
+	{
+		margin: 0;
+		padding: 1em 4em;
+		line-height: 1.5em;
+		font-size: 1.8em;
+	}
+
+}
+
+@media only screen and (max-width: 401px) and (min-width: 1200px){
+
+body
+{
+}
+
+body,input,textarea,select
+{
+	font-size: 11pt;
+}
+
+header
+{
+	margin-bottom: 1.6em;
+}
+
+	header h2
+	{
+		font-size: 2.8em;
+	}
+
+	header .byline
+	{
+		font-size: 1.2em;
+	}
+
+#main
+{
+}
+
+.homepage #content header h2
+{
+	font-size: 1.8em;
+}
+
+#sidebar h2
+{
+	font-size: 2em;
+}
+
+#tweet
+{
+}
+
+#tweet blockquote
+{
+	font-size: 1.6em;
+}
+
+}
+
+@media screen and (max-width: 400px){
+
+	#mobileMenuWrapper{
+		position: fixed;
+		width: 100%;
+		height: 44px;
+		top: 0px
+	}
+
+	#mobilMenuSpan{
+		cursor: pointer;
+		position: absolute;
+		height: 60px;
+		width: 80px;
+		top: 0;
+		left: 0
+	}
+
+
+
+	#mobileMenuIcon{
+		position: absolute;
+		top: 15px;
+		height: 12px;
+		width: 20px;
+		left: 10px;
+		opacity: 0,5;
+		background: url('./images/toggle.svg')
+	}
+
+	#mobileMenu{
+		backface-visibility: hidden;
+		transition: -webkit-transform 0.25s ease-in-out 0s;
+		z-index: 10000;
+		position: fixed;
+		display: block;
+		overflow-y: scroll;
+		top: 0px;
+		left: 0px;
+		width: 256px;
+		height: 100%;
+		background-color: #1f1f1f;
+	}
+
+	#MobileHeading{
+		color: white;
+		font-size: large;
+		padding: 10px;
+		text-align: center;
+	}
+
+	.mobileMenuPoint{
+		cursor: pointer;
+		height: 50px;
+		padding: 15px;
+
+	}
+
+	.mobileMenuLink{
+		color: white;
+		font-size: large;
+	}
+
+
+#lastSideButton{
+	display: none
+}
+
+#nextSideButton{
+	display: none
+}
+
+
+header
+{
+	margin-bottom: 1.6em;
+}
+
+	header h2
+	{
+		font-size: 2em;
+	}
+
+	header .byline
+	{
+		font-size: 1.2em;
+	}
+
+#navPanel
+{
+	background: #1f1f1f;
+}
+
+	#navPanel .link
+	{
+		display: block;
+		color: #888;
+		text-decoration: none;
+		height: 44px;
+		line-height: 44px;
+		border-top: solid 1px;
+		border-color: rgba(255,255,255,.05);
+		padding: 0 1em 0 1em;
+		letter-spacing: 1px;
+	}
+
+		#navPanel .link:first-child
+		{
+			border-top: 0;
+		}
+
+		#navPanel .link.depth-0
+		{
+			color: #fff;
+		}
+
+		#navPanel .indent-1 { display: inline-block; width: 1em; }
+		#navPanel .indent-2 { display: inline-block; width: 2em; }
+		#navPanel .indent-3 { display: inline-block; width: 3em; }
+		#navPanel .indent-4 { display: inline-block; width: 4em; }
+		#navPanel .indent-5 { display: inline-block; width: 5em; }
+		#navPanel .depth-0 { color: #fff; }
+
+#header
+{
+	height: 10em;
+	padding: 0;
+	background-position: center center;
+	background-attachment: scroll;
+}
+
+
+#logo
+{
+	display: none;
+}
+
+
+#nav
+{
+	display: none;
+}
+
+#tweet
+{
+	padding: 3em 0em 1em 0em;
+	background-position: center center;
+	background-attachment: scroll;
+}
+
+#tweet blockquote
+{
+	margin: 0;
+	padding: 1em 1em;
+	font-size: 1.2em;
+}
+
+.\34 u { width: 100% }
+.\36 u { width: 100% }
+
+}
