@@ -22,6 +22,7 @@ const connection = mysql.createConnection({
 
 function getMealsByName(name){
     return new Promise(function(resolve, reject){
+        console.log(`SELECT * FROM mealtracker.meals WHERE LOWER(name) like LOWER('${name}')`)
         connection.query(
             `SELECT * FROM mealtracker.meals WHERE LOWER(name) like LOWER('${name}')`, function(err, results, fields){
                 if(err) reject(err);
@@ -46,10 +47,13 @@ function getRecommendation(currentMonth){
     })
 }
 
-function createNewMeal(name, description){
+function createNewMeal(name, description, months){
     try{
         connection.query(
-            `INSERT INTO mealtracker.meals (name, description) VALUES( '${name}', '${description}')`
+            `INSERT INTO mealtracker.meals
+            (name, description, januar, februar, march, april, mai, juni, july, august, september, october, november, december)
+            VALUES( '${name}', '${description}', ${months.januar}, ${months.februar}, ${months.march}, ${months.april}, ${months.mai},
+            ${months.juni}, ${months.july}, ${months.august}, ${months.september}, ${months.october}, ${months.november}, ${months.december})`
         )
     }catch(err){
         console.log(err)
