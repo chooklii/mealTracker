@@ -14,6 +14,24 @@ function convertMonthIDtoString(id){
     if(id ==11) return "december"
 }
 
+function setUpMonthJSON(body){
+    return {
+        januar: body.januar != undefined ? body.januar : true,
+        februar: body.februar != undefined ? body.februar : true,
+        march: body.march != undefined ? body.march : true,
+        april: body.april != undefined ? body.april : true,
+        mai: body.mai != undefined ? body.mai : true,
+        juni: body.juni != undefined ? body.juni : true,
+        july: body.july != undefined ? body.july : true,
+        august: body.august != undefined ? body.august : true,
+        september: body.september != undefined ? body.september : true,
+        october: body.october != undefined ? body.october : true,
+        november: body.november != undefined ? body.november : true,
+        december: body.december != undefined ? body.december : true
+    }
+}
+
 module.exports = {
-    convertMonthIDtoString
+    convertMonthIDtoString,
+    setUpMonthJSON
 }

@@ -48,20 +48,7 @@ module.exports = function(app){
         const body = req.body
         const name = body.name
         const description = body.description
-        const months = {
-            januar: body.januar != undefined ? body.januar : true,
-            februar: body.februar != undefined ? body.februar : true,
-            march: body.march != undefined ? body.march : true,
-            april: body.april != undefined ? body.april : true,
-            mai: body.mai != undefined ? body.mai : true,
-            juni: body.juni != undefined ? body.juni : true,
-            july: body.july != undefined ? body.july : true,
-            august: body.august != undefined ? body.august : true,
-            september: body.september != undefined ? body.september : true,
-            october: body.october != undefined ? body.october : true,
-            november: body.november != undefined ? body.november : true,
-            december: body.december != undefined ? body.december : true
-        }
+        const months = helper.setUpMonthJSON(body)
         databaseHandler.createNewMeal(name, description, months)
         res.send(200)
         }catch(err){
@@ -76,20 +63,7 @@ module.exports = function(app){
             const name = body.name
             const description = body.description
             const id = body.id
-            const months = {
-                januar: body.januar != undefined ? body.januar : true,
-                februar: body.februar != undefined ? body.februar : true,
-                march: body.march != undefined ? body.march : true,
-                april: body.april != undefined ? body.april : true,
-                mai: body.mai != undefined ? body.mai : true,
-                juni: body.juni != undefined ? body.juni : true,
-                july: body.july != undefined ? body.july : true,
-                august: body.august != undefined ? body.august : true,
-                september: body.september != undefined ? body.september : true,
-                october: body.october != undefined ? body.october : true,
-                november: body.november != undefined ? body.november : true,
-                december: body.december != undefined ? body.december : true
-            }
+            const months = helper.setUpMonthJSON(body)
             databaseHandler.updateMeal(name, description, id, months)
             res.send(200)
         }catch(err){

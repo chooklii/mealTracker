@@ -1,0 +1,19 @@
+CREATE TABLE meal (
+    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(255) NOT NULL,
+    desc varchar(255),
+    amount int(11),
+    last_time TIMESTAMP Not Null Default Current_Timestamp ON UPDATE Current_Timestamp,
+    januar Boolean default true,
+    februar Boolean default true,
+    march Boolean default true,
+    april Boolean default true,
+    mai Boolean default true,
+    juni Boolean default true,
+    july Boolean default true,
+    august Boolean default true,
+    september Boolean default true,
+    october Boolean default true,
+    november Boolean default true,
+    december Boolean default true
+)

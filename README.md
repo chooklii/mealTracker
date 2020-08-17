@@ -8,6 +8,8 @@ React App with Express BackEnd to track eaten meals and to get suggestions for t
 
 2. Run "npm install" to install all dependencies (If not there install needed stuff like node and so on) 
 
+3. Run all SQLs inside of migration-File to create tables
+
 # to run:
 
 1. "run npm run build" to put all JS-Files together 
