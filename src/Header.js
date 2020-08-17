@@ -50,7 +50,7 @@ render() {
 					<div id="mobileMenuIcon"></div>
 					</span>
 
-					<h1 id="MobileHeading">Chooklii.de</h1>
+					<h1 id="MobileHeading">MealTracker</h1>
 				</div>
 				{this.state.mobileMenu &&
 
