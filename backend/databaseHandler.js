@@ -58,8 +58,6 @@ function createNewMeal(name, description){
 }
 
 function updateMeal(name, description, id, months){
-    console.log(months)
-    console.log(months.september)
     try{
         connection.query(
             `UPDATE mealtracker.meals SET

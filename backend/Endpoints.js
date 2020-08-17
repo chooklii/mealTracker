@@ -31,7 +31,6 @@ module.exports = function(app){
     app.get("/recommendations", async function(req, res){
         try{
             const date = new Date()
-            console.log(date.getMonth())
             const currentMonth = helper.convertMonthIDtoString(date.getMonth())
             const result = await databaseHandler.getRecommendation(currentMonth)
             res.json(result)
@@ -63,18 +62,18 @@ module.exports = function(app){
             const description = body.description
             const id = body.id
             const months = {
-                januar: body.januar ? body.januar : true,
-                februar: body.februar ? body.februar : true,
-                march: body.march ? body.march : true,
-                april: body.april ? body.april : true,
-                mai: body.mai ? body.mai : true,
-                juni: body.juni ? body.juni : true,
-                july: body.july ? body.july : true,
-                august: body.august ? body.august : true,
-                september: body.september ? body.september : true,
-                october: body.october ? body.october : true,
-                november: body.november ? body.november : true,
-                december: body.december ? body.december : true
+                januar: body.januar != undefined ? body.januar : true,
+                februar: body.februar != undefined ? body.februar : true,
+                march: body.march != undefined ? body.march : true,
+                april: body.april != undefined ? body.april : true,
+                mai: body.mai != undefined ? body.mai : true,
+                juni: body.juni != undefined ? body.juni : true,
+                july: body.july != undefined ? body.july : true,
+                august: body.august != undefined ? body.august : true,
+                september: body.september != undefined ? body.september : true,
+                october: body.october != undefined ? body.october : true,
+                november: body.november != undefined ? body.november : true,
+                december: body.december != undefined ? body.december : true
             }
             databaseHandler.updateMeal(name, description, id, months)
             res.send(200)
