@@ -16,7 +16,7 @@ module.exports = function(app){
     })
 
     // get all meals that match name
-    app.get("/mealsByName", function(req, res){
+    app.get("/mealsByName", async function(req, res){
         try{
             const result = await databaseHandler.getMealsByName(req.query.name)
             res.json(result)
