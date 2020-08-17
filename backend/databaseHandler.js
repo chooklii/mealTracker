@@ -22,9 +22,8 @@ const connection = mysql.createConnection({
 
 function getMealsByName(name){
     return new Promise(function(resolve, reject){
-        console.log(`SELECT * FROM mealtracker.meals WHERE LOWER(name) like LOWER('${name}')`)
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE LOWER(name) like LOWER('${name}')`, function(err, results, fields){
+            `SELECT * FROM mealtracker.meals WHERE LOWER(name) like LOWER('%${name}%')`, function(err, results, fields){
                 if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -95,6 +94,7 @@ function updateEaten(id){
                 const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount +1 : 1
+                console.log(newAmount)
             }
         )
         connection.query(
@@ -102,7 +102,7 @@ function updateEaten(id){
         )
     }catch(err){
         console.log(err)
-    }
+    } n
 
 }
 
