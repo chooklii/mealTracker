@@ -5,9 +5,14 @@ module.exports = function(app){
 
     // get all meals available
     app.get("/meals", async function(req, res){
-        await databaseHandler.getAllMeals().then(result => {
-            res.end(result)
-        })
+        try{
+            const result = await databaseHandler.getAllMeals()
+            res.json(result)
+        } catch(error){
+            res.status(500).send({
+                message: error
+            })
+        }
     })
 
     // get all meals that match name

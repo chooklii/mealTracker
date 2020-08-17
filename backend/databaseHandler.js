@@ -1,6 +1,7 @@
 const config = require("../config")
 
 const mysql = require("mysql")
+const { parse } = require("@babel/core")
 const connection = mysql.createConnection({
     host: config.HOST,
     user: config.USER,
@@ -8,16 +9,15 @@ const connection = mysql.createConnection({
 })
 
  function getAllMeals(){
-    try{
-        connection.query(
-            "SELECT * FROM mealtracker.meals", function(err, results, fields){
-                if(err) throw err;
-                return new Promise.resolve(Object.values(JSON.parse(JSON.stringify(results))))
-            }
-        )
-    }catch(err){
-        console.error(err)
-    }
+    return new Promise(function(resolve, reject){
+            connection.query(
+                "SELECT * FROM mealtracker.meals", function(err, results, fields){
+                if(err) reject(err)
+                else{
+                    resolve(Object.values(JSON.parse(JSON.stringify(results))))
+                }
+            })
+        })
 }
 
 function getMealsByName(name){
