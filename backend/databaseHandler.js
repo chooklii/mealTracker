@@ -23,8 +23,21 @@ const connection = mysql.createConnection({
 function getMealsByName(name){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE name like '% ${name} %'`, function(err, results, fields){
-                if(err) throw err;
+            `SELECT * FROM mealtracker.meals WHERE LOWER(name) like LOWER('${name}')`, function(err, results, fields){
+                if(err) reject(err);
+                else{
+                    resolve(Object.values(JSON.parse(JSON.stringify(results))))
+                }
+            }
+        )
+    })
+}
+
+function getRecommendation(currentMonth){
+    return new Promise(function(resolve, reject){
+        connection.query(
+            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true ORDER BY last_time`, function(err, results, fields){
+                if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
                 }
@@ -44,10 +57,25 @@ function createNewMeal(name, description){
 
 }
 
-function updateMeal(name, description, id, januar){
+function updateMeal(name, description, id, months){
     try{
         connection.query(
-            `UPDATE mealtracker.meals SET name = '${name}', description = '${description}', januar = ${januar} WHERE id = ${id}`
+            `UPDATE mealtracker.meals SET
+            name = '${name}',
+            description = '${description}',
+            januar = ${months.januar},
+            februar = ${months.februar},
+            march = ${months.march},
+            april = ${months.april},
+            mai = ${months.mai},
+            juni = ${months.juni},
+            july = ${months.july},
+            august = ${months.august},
+            september = ${months.september},
+            october = ${months.october},
+            november = ${months.november},
+            december = ${months.december}
+            WHERE id = ${id}`
         )
     }catch(err){
         console.log(err)
@@ -79,6 +107,7 @@ module.exports = {
     getMealsByName,
     createNewMeal,
     updateMeal,
-    updateEaten
+    updateEaten,
+    getRecommendation
 }
 
