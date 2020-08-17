@@ -47,7 +47,7 @@ function createNewMeal(name, description){
 function updateMeal(name, description, id, januar){
     try{
         connection.query(
-            `UPDATE mealtracker.meals SET name = '${name}', description = '${description}', jan = '${januar}' WHERE id = ${id}`
+            `UPDATE mealtracker.meals SET name = '${name}', description = '${description}', januar = '${januar}' WHERE id = ${id}`
         )
     }catch(err){
         console.log(err)
