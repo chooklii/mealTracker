@@ -36,7 +36,7 @@ render() {
 					<ul>
 						<li><Link to="/">Home</Link></li>
 						<li><Link to="/allMeal">Alle anzeigen</Link></li>
-						<li><Link to="/recommendations">Empfehlung</Link></li>
+						<li><Link to="/recommend">Empfehlung</Link></li>
 						<li><Link to="/addMeal">Essen hinzufügen</Link></li>
 					</ul>
 				</nav>
@@ -58,7 +58,7 @@ render() {
 					<ul>
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/">Home</Link></li>
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/allMeal">Alle Essen</Link></li>
-						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/recommendations">Empfehlung</Link></li>
+						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/recommend">Empfehlung</Link></li>
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/addMeal">Essen hinzufügen</Link></li>
 					</ul>
 				</div>

@@ -28,7 +28,7 @@ render() {
                         <AllMealsPage/>
                 </Route>
 
-                <Route exact path="/recommendations">
+                <Route exact path="/recommend">
                     <Header/>
                         <RecommendationPage/>
                 </Route>

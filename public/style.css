@@ -721,14 +721,6 @@
 		.fa-share-alt:before{content:"\f1e0"}
 		.fa-cubes:before{content:"\f1b3"}
 
-	#header
-	{
-		position: relative;
-		background: url(./images/header1.jpg) no-repeat bottom center;
-		background-attachment: fixed;
-		background-size: cover;
-		text-align: center;
-	}
 	
 		#header:before
 		{

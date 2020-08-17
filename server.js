@@ -13,6 +13,11 @@ app.use(cors())
 
 require("./backend/Endpoints")(app)
 
-app.get("/health", function(req, res){res.sendStatus(200)})
 app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
+app.get('/allMeal', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
+app.get('/addMeal', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
+app.get('/recommend', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
+
+
+
 app.listen(PORT, () => {console.log('Running at ' + PORT )});
