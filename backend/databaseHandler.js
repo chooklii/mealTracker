@@ -94,15 +94,14 @@ function updateEaten(id){
                 const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount +1 : 1
-                console.log(newAmount)
+                connection.query(
+                    `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${id}`
+                )
             }
-        )
-        connection.query(
-            `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${id}`
         )
     }catch(err){
         console.log(err)
-    } n
+    }
 
 }
 
