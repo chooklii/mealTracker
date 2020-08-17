@@ -17,9 +17,17 @@ module.exports = function(app){
 
     // get all meals that match name
     app.get("/mealsByName", function(req, res){
-        const result = databaseHandler.getMealsByName(req.query.name)
-        res.sendStatus(200)
+        try{
+            const result = await databaseHandler.getMealsByName(req.query.name)
+            res.json(result)
+        } catch(error){
+            res.status(500).send({
+                message: error
+            })
+        }
     })
+
+    // get recommendations
 
     // insert new Meal
     app.post("/meal", function(req, res){
@@ -41,7 +49,8 @@ module.exports = function(app){
             const name = body.name
             const description = body.description
             const id = body.id
-            databaseHandler.updateMeal(name, description, id)
+            const januar = body.januar
+            databaseHandler.updateMeal(name, description, id, januar)
             res.send(200)
         }catch(err){
             res.sendStatus(400)

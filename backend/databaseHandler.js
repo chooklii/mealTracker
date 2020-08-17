@@ -21,18 +21,16 @@ const connection = mysql.createConnection({
 }
 
 function getMealsByName(name){
-    try{
+    return new Promise(function(resolve, reject){
         connection.query(
             `SELECT * FROM mealtracker.meals WHERE name like '% ${name} %'`, function(err, results, fields){
                 if(err) throw err;
-                const result = Object.values(JSON.parse(JSON.stringify(results)))
-                return result
+                else{
+                    resolve(Object.values(JSON.parse(JSON.stringify(results))))
+                }
             }
         )
-    }catch(err){
-        console.error(err)
-    }
-
+    })
 }
 
 function createNewMeal(name, description){
@@ -46,10 +44,10 @@ function createNewMeal(name, description){
 
 }
 
-function updateMeal(name, description, id){
+function updateMeal(name, description, id, januar){
     try{
         connection.query(
-            `UPDATE mealtracker.meals SET name = '${name}', description = '${description}' WHERE id = ${id}`
+            `UPDATE mealtracker.meals SET name = '${name}', description = '${description}', jan = '${januar}' WHERE id = ${id}`
         )
     }catch(err){
         console.log(err)
