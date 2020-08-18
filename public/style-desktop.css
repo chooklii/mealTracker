@@ -17,6 +17,46 @@
 	background-color: white;
 }
 
+#headingDetailPage{
+	font-size: xx-large;
+	text-align: center;
+	margin-top: 20px;
+}
+
+#descriptionDetailPage{
+	margin-top: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+
+#monthInformationDetailPage{
+	text-align: center;
+	margin-top: 20px
+}
+
+#allMonths{
+	display: flex;
+}
+
+#firstSix{
+	width: 50%;
+}
+
+#informationDetailPage{
+	display: flex;
+	margin-top: 20px;
+}
+
+#amountDetailPage{
+	width: 50%;
+	text-align: center
+}
+
+#lastTimeDetailPage{
+	width: 50%;
+	text-align: center;
+}
+
 @media only screen and (min-width: 1201px){
 
 /*********************************************************************************/
