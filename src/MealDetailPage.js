@@ -28,18 +28,18 @@ class MealDetailPage extends React.Component{
                 this.setState({
                     data: data,
                     loaded: true,
-                    januar: data.januar,
-                    februar: data.februar,
-                    march: data.march,
-                    april: data.april,
-                    mai: data.mai,
-                    juni: data.juni,
-                    july: data.july,
-                    august: data.august,
-                    september: data.september,
-                    october: data.october,
-                    november: data.november,
-                    december: data.december
+                    januar: data.januar === 1,
+                    februar: data.februar === 1,
+                    march: data.march === 1,
+                    april: data.april === 1,
+                    mai: data.mai === 1,
+                    juni: data.juni === 1,
+                    july: data.july === 1,
+                    august: data.august === 1,
+                    september: data.september === 1,
+                    october: data.october === 1,
+                    november: data.november === 1,
+                    december: data.december === 1
                 })
             }
             catch(err){
@@ -60,27 +60,24 @@ class MealDetailPage extends React.Component{
 
     updateMenu(){
         const {data, januar, februar, march, april, mai, juni, july, august, september, october, november, december} = this.state
-
-        console.log(this.state)
         const body = {
             name:data.name,
             description: data.description,
             id: data.id,
-            januar: januar === 1,
-            februar: februar === 1,
-            march: march === 1,
-            april: april === 1,
-            mai: mai === 1,
-            juni: juni === 1,
-            july: july === 1,
-            august: august === 1,
-            september: september === 1,
-            october: october === 1,
-            november: november === 1,
-            december: december === 1
+            januar: januar,
+            februar: februar,
+            march: march,
+            april: april,
+            mai: mai,
+            juni: juni,
+            july: july,
+            august: august,
+            september: september,
+            october: october,
+            november: november,
+            december: december
         }
-        const config = {headers: {'content-type': 'multipart/form-data'}};
-        axios.post("http://"+ constants.IP_ADRESS + "/updateMeal", body, config).then((response) => {
+        axios.post("http://"+ constants.IP_ADRESS + "/updateMeal", body).then((response) => {
             this.loadData(data.id)
         })
     }

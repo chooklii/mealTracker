@@ -15,8 +15,6 @@ function convertMonthIDtoString(id){
 }
 
 function setUpMonthJSON(body){
-    console.log(body)
-    console.log(bdoy.januar != undefined)
     return {
         januar: body.januar != undefined ? body.januar : true,
         februar: body.februar != undefined ? body.februar : true,
