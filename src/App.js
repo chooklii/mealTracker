@@ -5,6 +5,7 @@ import HomePage from "./HomePage"
 import RecommendationPage from "./RecommendationPage"
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 import Header from "./Header"
+import MealDetailPage from "./MealDetailPage"
 
 class App extends React.Component{
 
@@ -31,6 +32,11 @@ render() {
                 <Route exact path="/recommend">
                     <Header/>
                         <RecommendationPage/>
+                </Route>
+
+                <Route exact path="/meal">
+                    <Header/>
+                        <MealDetailPage/>
                 </Route>
             </Switch>
         </div>

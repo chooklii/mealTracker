@@ -33,6 +33,19 @@ function getMealsByName(name){
     })
 }
 
+
+function getMealDetails(id){
+    return new Promise(function(resolve, reject){
+        connection.query(`SELECT * from mealtracker.meals WHERE id = ${id}`, function(err, results, fields){
+            if(err) reject(err);
+            else{
+                resolve(Object.values(JSON.parse(JSON.stringify(results))))
+            }
+        })
+    })
+}
+
+
 function getRecommendation(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
@@ -111,6 +124,7 @@ module.exports = {
     createNewMeal,
     updateMeal,
     updateEaten,
-    getRecommendation
+    getRecommendation,
+    getMealDetails
 }
 

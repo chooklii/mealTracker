@@ -28,6 +28,19 @@ module.exports = function(app){
         }
     })
 
+    // get one meal by ID
+    app.get("/details", async function(req, res){
+        try{
+            const id = req.query.id
+            const result = await databaseHandler.getMealDetails(id)
+            res.json(result)
+        } catch(error){
+            res.status(500).send({
+                message: error
+            })
+        }
+    })
+
     // get recommendations
     app.get("/recommendations", async function(req, res){
         try{
