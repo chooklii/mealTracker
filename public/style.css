@@ -648,16 +648,6 @@
 		.fa-share-alt:before{content:"\f1e0"}
 		.fa-cubes:before{content:"\f1b3"}
 
-	
-		#header:before
-		{
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-		}
 	#logo
 	{
 		position: relative;

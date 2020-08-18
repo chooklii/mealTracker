@@ -42,6 +42,10 @@
 	width: 50%;
 }
 
+#lastSix{
+	width: 50%;
+}
+
 #informationDetailPage{
 	display: flex;
 	margin-top: 20px;
@@ -56,6 +60,94 @@
 	width: 50%;
 	text-align: center;
 }
+
+
+#updateButtonDetailPage{
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	width: 80%;
+	margin-left: 10%;
+	cursor: pointer;
+}
+
+#eatButtonDetailPage{
+	background-color: #008CBA;; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	width: 80%;
+	margin-left: 10%;
+	cursor: pointer;
+}
+
+.detailPageCheckbox{
+	zoom: 1.5
+}
+
+#nameInputField{
+	width: 70%;
+	margin-right: 10%;
+}
+
+#descriptionInputField{
+	width: 70%;
+	margin-top: 10px;
+	margin-right: 10%;
+}
+
+#saveChangeButton{
+	width: 20%;
+	margin-top: 10px;
+	background-color: #4CAF50;
+	color: white;
+	cursor: pointer;
+	min-height: 35px;
+}
+
+#editButton{
+	width: 20%;
+	margin-top: 10px;
+	background-color: #4CAF50;
+	color: white;
+	cursor: pointer;
+	min-height: 35px;
+	float: right;
+}
+
+#navigateBackButton{
+	width: 20%;
+	margin-top: 10px;
+	background-color: #008CBA;
+	color: white;
+	cursor: pointer;
+	min-height: 35px;
+	float: left;
+}
+
+#removeChangeButton{
+	width: 20%;
+	background-color: red;
+	color: white;
+	cursor: pointer;
+	min-height: 35px;
+}
+
+#headingBoxDetailPage{
+	display: flow-root;
+}
+
+
+
 
 @media only screen and (min-width: 1201px){
 
