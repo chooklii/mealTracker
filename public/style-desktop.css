@@ -77,7 +77,7 @@
 }
 
 #eatButtonDetailPage{
-	background-color: #008CBA;; /* Green */
+	background-color: #008CBA;
 	border: none;
 	color: white;
 	padding: 15px 32px;
@@ -146,6 +146,87 @@
 	display: flow-root;
 }
 
+#headingCreatePage{
+	font-size: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#oneMealRecommendationPage{
+	background-color: lightgrey;
+	margin-top: 20px;
+}
+
+#nameMealRecommendationPage{
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#amountRecommendationPage{
+	font-size: 15px;
+	width: 30%;
+	text-align: center;
+}
+
+#lastTimeRecommendationPage{
+	font-size: 15px;
+	width: 30%;
+	text-align: right;
+	margin-right: 5%;
+}
+
+#eatButtonRecommendationPage{
+	background-color: #008CBA;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	width: 30%;
+	cursor: pointer;
+}
+
+#detailButtonRecommendationPage{
+	background-color: #555555;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	width: 30%;
+	cursor: pointer;
+}
+
+#firstLineRecommendationPage{
+	display: inline-flex;
+	width: 100%;
+}
+
+#lastLineRecommendationPage{
+	display: inline-flex;
+	margin-top: 5px;
+	width: 100%;
+}
+
+#upperBoxRecommendationPage{
+	width: 65%;
+	text-align: center;
+}
+
+#headingRecommendationPage{
+	font-size: 20px;
+	text-align: center;
+}
+
+#searchFieldAllMealPage{
+	width: 70%;
+	margin-top: 10px;
+
+}
 
 
 

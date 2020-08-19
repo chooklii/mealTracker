@@ -4,6 +4,7 @@ import constants from "../config.js"
 import {getDateFromTimestamp} from "./helper"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faSave, faBackspace, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+import {getQueryStringValue} from "./helper"
 
 class MealDetailPage extends React.Component{
     constructor(props){
@@ -12,7 +13,8 @@ class MealDetailPage extends React.Component{
             data: [],
             loaded: false,
             edit: false,
-            id: 0
+            id: 0,
+            searchQuery: null
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -22,13 +24,18 @@ class MealDetailPage extends React.Component{
     }
 
     componentDidMount(){
-        const mealId = this.getQueryStringValue("id")
-        const previousPage = this.getQueryStringValue("last")
+        const mealId = getQueryStringValue("id")
+        const previousPage = getQueryStringValue("last")
+        const searchQuery = getQueryStringValue("searchQuery")
+        console.log(searchQuery)
         this.setState({
-            id: mealId, 
-            lastPage:previousPage})
+            id: mealId,
+            lastPage:previousPage,
+            searchQuery: searchQuery
+        })
         this.loadData(mealId)
     }
+
 
     loadData(mealId){
         axios.get("http://" + constants.IP_ADRESS + "/details?id=" + mealId).then((response) => {
@@ -93,10 +100,6 @@ class MealDetailPage extends React.Component{
         })
     }
 
-    getQueryStringValue (key) {
-        return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-      }
-
     handleInputChange(event){
         const target = event.target
         const value = target.checked ? true : false
@@ -124,9 +127,19 @@ class MealDetailPage extends React.Component{
     }
 
     navigateBack(){
-        const {lastPage} = this.state
+        const {lastPage,searchQuery} = this.state
         const origin = window.location.origin
-        window.location.href = origin + "/"
+        if(lastPage === "recommendation"){
+            window.location.href = origin + "/recommend"
+        }else if(lastPage === "allMeals"){
+            if(searchQuery){
+                window.location.href = origin + "/allMeal?query="+searchQuery
+            }
+            else{
+                window.location.href = origin + "/allMeal"
+            }
+        }
+        else window.location.href = origin + "/"
     }
 
     render(){
@@ -162,8 +175,8 @@ class MealDetailPage extends React.Component{
                 }
 
                 <div id="informationDetailPage">
-                <div id="amountDetailPage">{data.amount}x zubereitet</div>
-                <div id="lastTimeDetailPage">Zuletzt am {getDateFromTimestamp(data["last_time"])}</div>
+                <div id="amountDetailPage">{data.amount ? data.amount : 0}x zubereitet</div>
+                <div id="lastTimeDetailPage">{data.amount ? "Zuletzt am " + getDateFromTimestamp(data["last_time"]) : "nie"}</div>
                 </div>
 
 
