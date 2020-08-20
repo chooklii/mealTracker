@@ -108,7 +108,7 @@ function updateEaten(id){
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount +1 : 1
                 connection.query(
-                    `UPDATE mealtracker.meals SET amount = ${newAmount} AND last_time = current_timestamp WHERE id = ${id}`
+                    `UPDATE mealtracker.meals SET amount = ${newAmount},last_time = current_timestamp WHERE id = ${id}`
                 )
             }
         )
