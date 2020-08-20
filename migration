@@ -3,7 +3,7 @@ CREATE TABLE meal (
     name varchar(255) NOT NULL,
     desc varchar(255),
     amount int(11),
-    last_time TIMESTAMP Not Null Default Current_Timestamp ON UPDATE Current_Timestamp,
+    last_time TIMESTAMP Not Null Default Current_Timestamp,
     januar Boolean default true,
     februar Boolean default true,
     march Boolean default true,
