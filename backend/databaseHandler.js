@@ -49,7 +49,7 @@ function getMealDetails(id){
 function getRecommendationMain(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true AND main_cource is true ORDER BY last_time`, function(err, results, fields){
+            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true AND main_dish is true ORDER BY last_time`, function(err, results, fields){
                 if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
