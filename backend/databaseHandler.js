@@ -38,7 +38,7 @@ function getMealsByName(name){
 function getMealDetails(id){
     return new Promise(function(resolve, reject){
         connection.query(`SELECT * from mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
-        WHERE id = ${id}`, function(err, results, fields){
+        WHERE mealtracker.meals.id = ${id}`, function(err, results, fields){
             if(err) reject(err);
             else{
                 resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -51,7 +51,8 @@ function getMealDetails(id){
 function getRecommendationMain(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true AND main_dish is true ORDER BY last_time`, function(err, results, fields){
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            WHERE ${currentMonth} is true AND main_dish is true ORDER BY mealtracker.eaten.time`, function(err, results, fields){
                 if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -64,7 +65,8 @@ function getRecommendationMain(currentMonth){
 function getRecommendationCake(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true AND cake is true ORDER BY last_time`, function(err, results, fields){
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            WHERE ${currentMonth} is true AND cake is true ORDER BY mealtracker.eaten.time`, function(err, results, fields){
                 if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
