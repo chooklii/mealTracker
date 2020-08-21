@@ -42,7 +42,7 @@ module.exports = function(app){
         })
 
         // get all meals available
-        app.get("/deletedMeals", async function(req, res){
+        app.get("/getdeletedMeals", async function(req, res){
             try{
                 const result = await databaseHandler.getAllDeletedMeals()
                 res.json(result)

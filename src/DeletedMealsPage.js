@@ -24,7 +24,7 @@ class DeletedMealsPage extends React.Component{
     }
 
     getMeals(){
-        axios.get("http://" + constants.IP_ADRESS + "/deletedMeals").then((response) => {
+        axios.get("http://" + constants.IP_ADRESS + "/getdeletedMeals").then((response) => {
             try{
                 const data = response.data
                 this.setState({
