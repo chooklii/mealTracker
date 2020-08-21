@@ -17,7 +17,8 @@ CREATE TABLE meal (
     december Boolean default true,
     cake Boolean default false,
     main_dish Boolean default true,
-    deleted Boolean default false
+    deleted Boolean default false,
+    workmeal Boolean default false
 )
 
 CREATE TABLE eaten(

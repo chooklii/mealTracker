@@ -18,6 +18,7 @@ app.get('/allMeal', (req, res, next) => res.sendFile(path.join(__dirname, '/publ
 app.get('/addMeal', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
 app.get('/recommend/main', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
 app.get('/recommend/cake', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
+app.get('/recommend/work', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
 app.get('/meal', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
 app.get('/deletedMeals', (req, res, next) => res.sendFile(path.join(__dirname, '/public/index.html')));
 

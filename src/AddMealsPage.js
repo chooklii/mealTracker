@@ -21,7 +21,8 @@ class AddMealsPage extends React.Component{
             november: true,
             december: true,
             main: true,
-            cake: false
+            cake: false,
+            workmeal: true
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -30,7 +31,7 @@ class AddMealsPage extends React.Component{
     }
 
     createMenu(){
-        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, cake, main} = this.state
+        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, cake, main, workmeal} = this.state
         const body = {
             name:name,
             description: description,
@@ -48,7 +49,8 @@ class AddMealsPage extends React.Component{
             november: november,
             december: december,
             cake: cake,
-            main: main
+            main: main,
+            workmeal: workmeal
         }
         axios.post("http://"+ constants.IP_ADRESS + "/meal", body).then((response) => {
             location.reload()
@@ -86,7 +88,7 @@ class AddMealsPage extends React.Component{
 
 
     render(){
-        const {name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake} = this.state
+        const {name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal} = this.state
         return(
             <div id="main">
                 <div>
@@ -112,6 +114,8 @@ class AddMealsPage extends React.Component{
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="juni" type="checkbox" checked={juni}/> Juni </div>
 
                 <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="main" type="checkbox" checked={main}/> Hauptgericht </div>
+
+                <div className="detailPageCheckboxMealType"> <input onChange={this.handleInputChange} name="workmeal" type="checkbox" checked={workmeal}/> Arbeitsessen </div>
 
                 </div>
 

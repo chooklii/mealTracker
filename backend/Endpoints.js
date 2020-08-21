@@ -95,6 +95,20 @@ module.exports = function(app){
         }
     })
 
+    // get recommendations work
+    app.get("/recommendations/work", async function(req, res){
+        try{
+            const date = new Date()
+            const currentMonth = helper.convertMonthIDtoString(date.getMonth())
+            const result = await databaseHandler.getRecommendationWork(currentMonth)
+            res.json(result)
+        } catch(error){
+            res.status(500).send({
+                message: error
+            })
+        }
+    })
+
     // insert new Meal
     app.post("/meal", function(req, res){
         try{
@@ -103,8 +117,9 @@ module.exports = function(app){
         const description = body.description
         const main = body.main
         const cake = body.cake
+        const workmeal = body.workmeal
         const months = helper.setUpMonthJSON(body)
-        databaseHandler.createNewMeal(name, description, months, cake, main)
+        databaseHandler.createNewMeal(name, description, months, cake, main, workmeal)
         res.send(200)
         }catch(err){
             res.sendStatus(400)
@@ -120,8 +135,9 @@ module.exports = function(app){
             const id = body.id
             const cake = body.cake
             const main = body.main
+            const workmeal = body.workmeal
             const months = helper.setUpMonthJSON(body)
-            databaseHandler.updateMeal(name, description, id, months, cake, main)
+            databaseHandler.updateMeal(name, description, id, months, cake, main, workmeal)
             res.send(200)
         }catch(err){
             res.sendStatus(400)

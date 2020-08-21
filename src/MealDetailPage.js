@@ -61,7 +61,8 @@ class MealDetailPage extends React.Component{
                     december: data.december === 1,
                     cake: data.cake,
                     main: data.main_dish,
-                    uniqueId: data.uniqueId
+                    uniqueId: data.uniqueId,
+                    workmeal: data.workmeal
                 })
             }
             catch(err){
@@ -100,7 +101,7 @@ class MealDetailPage extends React.Component{
     }
 
     updateMenu(){
-        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, data, cake, main} = this.state
+        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, data, cake, main, workmeal} = this.state
         const body = {
             name:name,
             description: description,
@@ -118,7 +119,8 @@ class MealDetailPage extends React.Component{
             november: november,
             december: december,
             cake: cake,
-            main: main
+            main: main,
+            workmeal: workmeal
         }
         axios.post("http://"+ constants.IP_ADRESS + "/updateMeal", body).then((response) => {
             this.loadData(id)
@@ -230,6 +232,8 @@ class MealDetailPage extends React.Component{
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="juni" type="checkbox" checked={juni}/> Juni </div>
 
                 <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="main" type="checkbox" checked={main}/> Hauptgericht </div>
+
+                <div className="detailPageCheckboxMealType"> <input onChange={this.handleInputChange} name="workmeal" type="checkbox" checked={workmeal}/> Arbeitsessen </div>
 
                 <button id="eatButtonDetailPage" type="button" onClick={() => this.eatMenu()}>Menü essen</button>
                 {data.amount != 0 &&

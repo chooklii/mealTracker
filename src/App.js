@@ -8,6 +8,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom"
 import Header from "./Header"
 import MealDetailPage from "./MealDetailPage"
 import DeletedMealsPage from "./DeletedMealsPage"
+import RecommendationWorkPage from "./RecommendationWorkPage"
 
 class App extends React.Component{
 
@@ -49,6 +50,11 @@ render() {
                 <Route exact path="/deletedMeals">
                     <Header/>
                         <DeletedMealsPage/>
+                </Route>
+
+                <Route exact path="/recommend/work">
+                    <Header/>
+                        <RecommendationWorkPage/>
                 </Route>
             </Switch>
         </div>

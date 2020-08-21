@@ -38,6 +38,7 @@ render() {
 						<li><Link to="/allMeal">Alle anzeigen</Link></li>
 						<li><Link to="/recommend/main">Empfehlung Hauptgericht</Link></li>
 						<li><Link to="/recommend/cake">Empfehlung Nachtisch</Link></li>
+						<li><Link to="/recommend/work">Empfehlung Arbeitsessen</Link></li>
 						<li><Link to="/addMeal">Essen hinzufügen</Link></li>
 						<li><Link to="/deletedMeals">Gelöschte Essen</Link></li>
 					</ul>
@@ -62,6 +63,7 @@ render() {
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/allMeal">Alle Essen</Link></li>
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/recommend/main">Empfehlung Hauptgericht</Link></li>
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/recommend/cake">Empfehlung Nachtisch</Link></li>
+						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/recommend/work">Empfehlung Arbeitsessen</Link></li>
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/addMeal">Essen hinzufügen</Link></li>
 						<li className="mobileMenuPoint" onClick={() => this.changeMenu()}><Link className="mobileMenuLink" to="/deletedMeals">Gelöschte Essen</Link></li>
 					</ul>

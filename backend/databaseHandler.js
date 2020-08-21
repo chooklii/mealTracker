@@ -101,13 +101,27 @@ function getRecommendationCake(currentMonth){
     })
 }
 
-function createNewMeal(name, description, months, cake, main){
+function getRecommendationWork(currentMonth){
+    return new Promise(function(resolve, reject){
+        connection.query(
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            WHERE ${currentMonth} is true AND workmeal is true AND deleted = false ORDER BY mealtracker.eaten.time`, function(err, results, fields){
+                if(err) reject(err);
+                else{
+                    resolve(Object.values(JSON.parse(JSON.stringify(results))))
+                }
+            }
+        )
+    })
+}
+
+function createNewMeal(name, description, months, cake, main, workmeal){
     try{
         connection.query(
             `INSERT INTO mealtracker.meals
-            (name, description, januar, februar, march, april, mai, juni, july, august, september, october, november, december, cake, main_dish)
+            (name, description, januar, februar, march, april, mai, juni, july, august, september, october, november, december, cake, main_dish, workmeal)
             VALUES( '${name}', '${description}', ${months.januar}, ${months.februar}, ${months.march}, ${months.april}, ${months.mai},
-            ${months.juni}, ${months.july}, ${months.august}, ${months.september}, ${months.october}, ${months.november}, ${months.december}, ${cake}, ${main})`
+            ${months.juni}, ${months.july}, ${months.august}, ${months.september}, ${months.october}, ${months.november}, ${months.december}, ${cake}, ${main}, ${workmeal})`
         )
     }catch(err){
         console.log(err)
@@ -115,7 +129,7 @@ function createNewMeal(name, description, months, cake, main){
 
 }
 
-function updateMeal(name, description, id, months, cake, main){
+function updateMeal(name, description, id, months, cake, main, workmeal){
     try{
         connection.query(
             `UPDATE mealtracker.meals SET
@@ -134,7 +148,8 @@ function updateMeal(name, description, id, months, cake, main){
             november = ${months.november},
             december = ${months.december},
             cake = ${cake},
-            main_dish = ${main}
+            main_dish = ${main},
+            workmeal = ${workmeal}
             WHERE id = ${id}`
         )
     }catch(err){
@@ -218,6 +233,7 @@ module.exports = {
     deleteMeal,
     removeDeleted,
     getAllDeletedMeals,
-    getDeletedMealsByName
+    getDeletedMealsByName,
+    getRecommendationWork
 }
 
