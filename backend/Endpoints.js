@@ -76,7 +76,7 @@ module.exports = function(app){
         const body = req.body
         const name = body.name
         const description = body.description
-        const main = body.main,
+        const main = body.main
         const cake = body.cake
         const months = helper.setUpMonthJSON(body)
         databaseHandler.createNewMeal(name, description, months, cake, main)
