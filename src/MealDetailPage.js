@@ -88,14 +88,14 @@ class MealDetailPage extends React.Component{
             uniqueId: uniqueId
         }
         axios.post("http://"+ constants.IP_ADRESS + "/removeEaten", body).then((response) => {
-            this.loadData(id)
+            this.loadData(mealId)
         })
     }
 
     removeMeal(){
         const mealId = this.state.id
         axios.post("http://" + constants.IP_ADRESS + "/removeMeal?id=" + mealId).then((response) => {
-            this.loadData(mealId)
+            this.navigateBack()
         })
     }
 
@@ -230,9 +230,9 @@ class MealDetailPage extends React.Component{
                 <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="main" type="checkbox" checked={main}/> Hauptgericht </div>
 
                 <button id="eatButtonDetailPage" type="button" onClick={() => this.eatMenu()}>Menü essen</button>
-
+                {data.amount != 0 &&
                 <button id="removeEatenButtonDetailPage" type="button" onClick={() => this.removeEaten()}>Essen entf.</button>
-
+                }
 
                 </div>
 
@@ -249,7 +249,7 @@ class MealDetailPage extends React.Component{
                 <button id="updateButtonDetailPage" type="button" onClick={() => this.updateMenu()}>speichern</button>
 
                 <button id="removeMealButtonDetailPage" type="button" onClick={() => this.removeMeal()}>Löschen</button>
-
+                
 
                 </div>
                 </div>

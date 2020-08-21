@@ -51,9 +51,9 @@ class DeletedMealsPage extends React.Component{
     }})
     }
 
-    recoverMenu(mealid){
+    recoverMenu(mealId){
         axios.post("http://" + constants.IP_ADRESS + "/recoverMeal?id=" + mealId).then((response) => {
-            this.loadData(mealId)
+            this.getMeals()
         })
     }
 
