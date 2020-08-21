@@ -46,10 +46,23 @@ function getMealDetails(id){
 }
 
 
-function getRecommendation(currentMonth){
+function getRecommendationMain(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true ORDER BY last_time`, function(err, results, fields){
+            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true AND main_cource is true ORDER BY last_time`, function(err, results, fields){
+                if(err) reject(err);
+                else{
+                    resolve(Object.values(JSON.parse(JSON.stringify(results))))
+                }
+            }
+        )
+    })
+}
+
+function getRecommendationCake(currentMonth){
+    return new Promise(function(resolve, reject){
+        connection.query(
+            `SELECT * FROM mealtracker.meals WHERE ${currentMonth} is true AND cake is true ORDER BY last_time`, function(err, results, fields){
                 if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -124,7 +137,8 @@ module.exports = {
     createNewMeal,
     updateMeal,
     updateEaten,
-    getRecommendation,
+    getRecommendationMain,
+    getRecommendationCake,
     getMealDetails
 }
 

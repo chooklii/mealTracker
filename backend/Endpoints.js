@@ -41,12 +41,27 @@ module.exports = function(app){
         }
     })
 
-    // get recommendations
-    app.get("/recommendations", async function(req, res){
+    // get recommendations main cource
+    app.get("/recommendations/main", async function(req, res){
         try{
             const date = new Date()
             const currentMonth = helper.convertMonthIDtoString(date.getMonth())
-            const result = await databaseHandler.getRecommendation(currentMonth)
+            const result = await databaseHandler.getRecommendationMain(currentMonth)
+            res.json(result)
+        } catch(error){
+            res.status(500).send({
+                message: error
+            })
+        }
+    })
+
+
+    // get recommendations cake
+    app.get("/recommendations/cake", async function(req, res){
+        try{
+            const date = new Date()
+            const currentMonth = helper.convertMonthIDtoString(date.getMonth())
+            const result = await databaseHandler.getRecommendationCake(currentMonth)
             res.json(result)
         } catch(error){
             res.status(500).send({

@@ -94,6 +94,11 @@
 	zoom: 1.5
 }
 
+.detailPageCheckboxMealType{
+	zoom: 1.5;
+	margin-top: 20px
+}
+
 #nameInputField{
 	width: 70%;
 	margin-right: 10%;

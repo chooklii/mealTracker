@@ -2,7 +2,8 @@ import React from 'react';
 import AddMealsPage from "./AddMealsPage"
 import AllMealsPage from "./AllMealsPage"
 import HomePage from "./HomePage"
-import RecommendationPage from "./RecommendationPage"
+import RecommendationMainPage from "./RecommendationMainPage"
+import RecommendationCakePage from "./RecommendationCakePage"
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 import Header from "./Header"
 import MealDetailPage from "./MealDetailPage"
@@ -29,9 +30,14 @@ render() {
                         <AllMealsPage/>
                 </Route>
 
-                <Route exact path="/recommend">
+                <Route exact path="/recommend/main">
                     <Header/>
-                        <RecommendationPage/>
+                        <RecommendationMainPage/>
+                </Route>
+
+                <Route exact path="/recommend/cake">
+                    <Header/>
+                        <RecommendationCakePage/>
                 </Route>
 
                 <Route exact path="/meal">

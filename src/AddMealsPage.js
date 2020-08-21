@@ -1,9 +1,6 @@
 import React from "react"
 import axios from "axios";
 import constants from "../config.js"
-import {getDateFromTimestamp} from "./helper"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faSave, faBackspace, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 
 class AddMealsPage extends React.Component{
     constructor(props){
@@ -22,15 +19,18 @@ class AddMealsPage extends React.Component{
             september: true,
             october: true,
             november: true,
-            december: true
+            december: true,
+            main: true,
+            cake: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleInputChangeTextField = this.handleInputChangeTextField.bind(this);
+        this.handleCakeMainChange = this.handleCakeMainChange.bind(this);
     }
 
     createMenu(){
-        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december} = this.state
+        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, cake, main} = this.state
         const body = {
             name:name,
             description: description,
@@ -46,7 +46,9 @@ class AddMealsPage extends React.Component{
             september: september,
             october: october,
             november: november,
-            december: december
+            december: december,
+            cake: cake,
+            main: main
         }
         axios.post("http://"+ constants.IP_ADRESS + "/meal", body).then((response) => {
             location.reload()
@@ -71,9 +73,20 @@ class AddMealsPage extends React.Component{
         })
     }
 
+    handleCakeMainChange(event){
+        const target = event.target
+        const value = target.checked ? true : false
+        const name = target.name
+        const otherName = name === "main" ? "cake": "main"
+        this.setState({
+            [name]: value,
+            [otherName]: !value
+        })
+    }
+
 
     render(){
-        const {name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december} = this.state
+        const {name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake} = this.state
         return(
             <div id="main">
                 <div>
@@ -87,7 +100,7 @@ class AddMealsPage extends React.Component{
                     </div>
                 </div>
 
-                <div id="monthInformationDetailPage">In folgenden Monaten empfohlen:</div>
+                <div id="monthInformationDetailPage">Details:</div>
 
                 <div id="allMonths">
                 <div id="firstSix">
@@ -98,6 +111,8 @@ class AddMealsPage extends React.Component{
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="mai" type="checkbox" checked={mai}/> Mai </div>
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="juni" type="checkbox" checked={juni}/> Juni </div>
 
+                <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="main" type="checkbox" checked={main}/> Hauptgericht </div>
+
                 </div>
 
                 <div id="lastSix">
@@ -107,6 +122,8 @@ class AddMealsPage extends React.Component{
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="october" type="checkbox" checked={october}/> Oktober </div>
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="november" type="checkbox" checked={november}/> November </div>
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="december" type="checkbox" checked={december}/> Dezember </div>
+
+                <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="cake" type="checkbox" checked={cake}/> Kuchen </div>
 
                 <button id="updateButtonDetailPage" type="button" onClick={() => this.createMenu()}>erstellen</button>
 

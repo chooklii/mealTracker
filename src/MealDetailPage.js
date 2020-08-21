@@ -21,6 +21,7 @@ class MealDetailPage extends React.Component{
         this.handleInputChangeTextField = this.handleInputChangeTextField.bind(this);
         this.removeChange = this.removeChange.bind(this);
         this.navigateBack = this.navigateBack.bind(this);
+        this.handleCakeMainChange = this.handleCakeMainChange.bind(this);
     }
 
     componentDidMount(){
@@ -57,7 +58,9 @@ class MealDetailPage extends React.Component{
                     september: data.september === 1,
                     october: data.october === 1,
                     november: data.november === 1,
-                    december: data.december === 1
+                    december: data.december === 1,
+                    cake: data.cake,
+                    main: data.main_dish
                 })
             }
             catch(err){
@@ -77,7 +80,7 @@ class MealDetailPage extends React.Component{
     }
 
     updateMenu(){
-        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december} = this.state
+        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, data, main} = this.state
         const body = {
             name:name,
             description: description,
@@ -126,6 +129,17 @@ class MealDetailPage extends React.Component{
         })
     }
 
+    handleCakeMainChange(event){
+        const target = event.target
+        const value = target.checked ? true : false
+        const name = target.name
+        const otherName = name === "main" ? "cake": "main"
+        this.setState({
+            [name]: value,
+            [otherName]: !value
+        })
+    }
+
     navigateBack(){
         const {lastPage,searchQuery} = this.state
         const origin = window.location.origin
@@ -143,7 +157,7 @@ class MealDetailPage extends React.Component{
     }
 
     render(){
-        const {data, name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december} = this.state
+        const {data, name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake} = this.state
         if(loaded && data){
         return(
             <div id="main">
@@ -191,6 +205,8 @@ class MealDetailPage extends React.Component{
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="mai" type="checkbox" checked={mai}/> Mai </div>
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="juni" type="checkbox" checked={juni}/> Juni </div>
 
+                <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="main" type="checkbox" checked={main}/> Hauptgericht </div>
+
                 <button id="eatButtonDetailPage" type="button" onClick={() => this.eatMenu()}>Menü essen</button>
 
 
@@ -203,6 +219,8 @@ class MealDetailPage extends React.Component{
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="october" type="checkbox" checked={october}/> Oktober </div>
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="november" type="checkbox" checked={november}/> November </div>
                 <div className="detailPageCheckbox"> <input onChange={this.handleInputChange} name="december" type="checkbox" checked={december}/> Dezember </div>
+
+                <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="cake" type="checkbox" checked={cake}/> Kuchen </div>
 
                 <button id="updateButtonDetailPage" type="button" onClick={() => this.updateMenu()}>speichern</button>
 
