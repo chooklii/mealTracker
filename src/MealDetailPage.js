@@ -60,7 +60,8 @@ class MealDetailPage extends React.Component{
                     november: data.november === 1,
                     december: data.december === 1,
                     cake: data.cake,
-                    main: data.main_dish
+                    main: data.main_dish,
+                    uniqueId: data.uniqueId
                 })
             }
             catch(err){
@@ -75,6 +76,25 @@ class MealDetailPage extends React.Component{
     eatMenu(){
         const mealId = this.state.id
         axios.post("http://" + constants.IP_ADRESS + "/eatMeal?id=" + mealId).then((response) => {
+            this.loadData(mealId)
+        })
+    }
+
+    removeEaten(){
+        const mealId = this.state.id
+        const uniqueId = this.state.uniqueId
+        const body = {
+            mealId: mealId,
+            uniqueId: uniqueId
+        }
+        axios.post("http://"+ constants.IP_ADRESS + "/removeEaten", body).then((response) => {
+            this.loadData(id)
+        })
+    }
+
+    removeMeal(){
+        const mealId = this.state.id
+        axios.post("http://" + constants.IP_ADRESS + "/removeMeal?id=" + mealId).then((response) => {
             this.loadData(mealId)
         })
     }
@@ -192,7 +212,7 @@ class MealDetailPage extends React.Component{
 
                 <div id="informationDetailPage">
                 <div id="amountDetailPage">{data.amount ? data.amount : 0}x zubereitet</div>
-                <div id="lastTimeDetailPage">{data.amount ? "Zuletzt am " + getDateFromTimestamp(data["last_time"]) : "nie"}</div>
+                <div id="lastTimeDetailPage">{data.amount ? "Zuletzt am " + getDateFromTimestamp(data["time"]) : "nie"}</div>
                 </div>
 
 
@@ -211,6 +231,8 @@ class MealDetailPage extends React.Component{
 
                 <button id="eatButtonDetailPage" type="button" onClick={() => this.eatMenu()}>Menü essen</button>
 
+                <button id="removeEatenButtonDetailPage" type="button" onClick={() => this.removeEaten()}>Essen entf.</button>
+
 
                 </div>
 
@@ -225,6 +247,8 @@ class MealDetailPage extends React.Component{
                 <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="cake" type="checkbox" checked={cake}/> Kuchen </div>
 
                 <button id="updateButtonDetailPage" type="button" onClick={() => this.updateMenu()}>speichern</button>
+
+                <button id="removeMealButtonDetailPage" type="button" onClick={() => this.removeMeal()}>Löschen</button>
 
 
                 </div>

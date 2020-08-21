@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBirthdayCake, faUtensils } from '@fortawesome/free-solid-svg-icons'
 
 
-class AllMealsPage extends React.Component{
+class DeletedMealsPage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -14,23 +14,17 @@ class AllMealsPage extends React.Component{
             loaded: false,
             searchQuery: ""
         }
-        this.eatMenu = this.eatMenu.bind(this);
-        this.detailsMenu = this.detailsMenu.bind(this);
+        this.recoverMenu = this.recoverMenu.bind(this);
         this.handleInputChangeTextField = this.handleInputChangeTextField.bind(this);
         this.getMealsByName = this.getMealsByName.bind(this);
     }
 
     componentDidMount(){
-        const searchQuery = getQueryStringValue("query")
-        if(searchQuery){
-            this.setState({searchQuery: searchQuery})
-            this.getMealsByName(searchQuery)
-        }
-        else this.getMeals()
+        this.getMeals()
     }
 
     getMeals(){
-        axios.get("http://" + constants.IP_ADRESS + "/meals").then((response) => {
+        axios.get("http://" + constants.IP_ADRESS + "/deletedMeals").then((response) => {
             try{
                 const data = response.data
                 this.setState({
@@ -44,7 +38,7 @@ class AllMealsPage extends React.Component{
     }
 
     getMealsByName(name){
-        axios.get("http://" + constants.IP_ADRESS + "/mealsByName?name="+name).then((response) => {
+        axios.get("http://" + constants.IP_ADRESS + "/deletedMealsByName?name="+name).then((response) => {
             try{
                 const data = response.data
                 this.setState({
@@ -57,6 +51,12 @@ class AllMealsPage extends React.Component{
     }})
     }
 
+    recoverMenu(mealid){
+        axios.post("http://" + constants.IP_ADRESS + "/recoverMeal?id=" + mealId).then((response) => {
+            this.loadData(mealId)
+        })
+    }
+
     handleInputChangeTextField(event){
         const target = event.target
         const value = target.value
@@ -64,26 +64,11 @@ class AllMealsPage extends React.Component{
         this.getMealsByName(value)
     }
 
-    eatMenu(id){
-        axios.post("http://" + constants.IP_ADRESS + "/eatMeal?id=" + id).then((response) => {
-            this.getMeals()
-        })
-    }
-
-    detailsMenu(id){
-        if(this.state.searchQuery != ""){
-            window.location.href = origin + "/meal?id="+id+"&last=allMeals&searchQuery="+this.state.searchQuery
-        }else{
-            window.location.href = origin + "/meal?id="+id+"&last=allMeals"
-        }
-    }
-
-
-    renderMealBox(meals, eatMeanu, detailsMeanu){
+    renderMealBox(meals, recoverMenu ){
         return meals.map(function(meal){
         return(
             <div id="oneMealRecommendationPage">
-                <div id="firstLineRecommendationPage">
+                <div id="firstLineDeletedPage">
 
                     <div id="upperBoxRecommendationPage">
 
@@ -93,14 +78,8 @@ class AllMealsPage extends React.Component{
                     </div>
                     <div >{meal.description}</div>
                     </div>
-                    <button id="eatButtonRecommendationPage" type="button" onClick={() => eatMeanu(meal.id)}>essen</button>
+                    <button id="recoverButtonDeletedPage" type="button" onClick={() => recoverMenu(meal.id)}>Zurückholen</button>
 
-                </div>
-
-                    <div id="lastLineRecommendationPage">
-                    <div id="amountRecommendationPage">{meal.amount ? meal.amount : 0}x zubereitet </div>
-                    <div id="lastTimeRecommendationPage">{meal.time ? getDateFromTimestamp(meal.time): "-"}</div>
-                    <button id="detailButtonRecommendationPage" type="button" onClick={() => detailsMeanu(meal.id)}>Details</button>
                 </div>
             </div>
         )
@@ -113,15 +92,14 @@ class AllMealsPage extends React.Component{
         if(loaded){
         return(
             <div id="main">
-                <div id="headingRecommendationPage">Alle Essen: </div>
+                <div id="headingRecommendationPage">Gelöschte Essen: </div>
                     <div>
                         <input id="searchFieldAllMealPage" onChange={this.handleInputChangeTextField} type="text" name="description" defaultValue={searchQuery} placeholder="Name suchen"/>
                     </div>
 
                 {this.renderMealBox(
                     data,
-                    (id) => this.eatMenu(id),
-                    (id) => this.detailsMenu(id))}
+                    (id) => this.recoverMenu(id))}
 		    </div>
         )
         }else return null
@@ -129,4 +107,4 @@ class AllMealsPage extends React.Component{
 
 }
 
-export default AllMealsPage
+export default DeletedMealsPage

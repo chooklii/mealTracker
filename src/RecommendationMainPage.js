@@ -59,7 +59,7 @@ class RecommendationMainPage extends React.Component{
 
                     <div id="lastLineRecommendationPage">
                     <div id="amountRecommendationPage">{meal.amount ? meal.amount : 0}x zubereitet </div>
-                    <div id="lastTimeRecommendationPage">{meal.amount ? getDateFromTimestamp(meal.last_time): "-"}</div>
+                    <div id="lastTimeRecommendationPage">{meal.time ? getDateFromTimestamp(meal.time): "-"}</div>
                     <button id="detailButtonRecommendationPage" type="button" onClick={() => detailsMeanu(meal.id)}>Details</button>
                 </div>
             </div>

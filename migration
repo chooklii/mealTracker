@@ -20,7 +20,7 @@ CREATE TABLE meal (
 )
 
 CREATE TABLE eaten(
-    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uniqueId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     mealId int(11) NOT NULL,
     time TIMESTAMP Not Null Default Current_Timestamp,
 )

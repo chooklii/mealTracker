@@ -74,6 +74,7 @@
 	width: 80%;
 	margin-left: 10%;
 	cursor: pointer;
+	margin-top: 20px;
 }
 
 #eatButtonDetailPage{
@@ -88,6 +89,37 @@
 	width: 80%;
 	margin-left: 10%;
 	cursor: pointer;
+	margin-top: 20px;
+}
+
+#removeEatenButtonDetailPage{
+	background-color: #555555;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	width: 80%;
+	margin-left: 10%;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+#removeMealButtonDetailPage{
+	background-color: #f44336;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	width: 80%;
+	margin-left: 10%;
+	cursor: pointer;
+	margin-top: 20px;
 }
 
 .detailPageCheckbox{
@@ -193,6 +225,19 @@
 	cursor: pointer;
 }
 
+#recoverButtonDeletedPage{
+	background-color: #008CBA;
+	border: none;
+	color: white;
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	width: 30%;
+	cursor: pointer;
+}
+
 #detailButtonRecommendationPage{
 	background-color: #555555;
 	border: none;
@@ -249,6 +294,12 @@
 	background-size: cover;
 }
 
+#firstLineDeletedPage{
+	display: inline-flex;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 
 
 @media only screen and (min-width: 1201px){

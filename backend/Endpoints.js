@@ -28,6 +28,31 @@ module.exports = function(app){
         }
     })
 
+        // get all deleted meals that match name
+        app.get("/deletedMealsByName", async function(req, res){
+            try{
+                const name = req.query.name
+                const result = await databaseHandler.getDeletedMealsByName(name)
+                res.json(result)
+            } catch(error){
+                res.status(500).send({
+                    message: error
+                })
+            }
+        })
+
+        // get all meals available
+        app.get("/deletedMeals", async function(req, res){
+            try{
+                const result = await databaseHandler.getAllDeletedMeals()
+                res.json(result)
+            } catch(error){
+                res.status(500).send({
+                    message: error
+                })
+            }
+        })
+
     // get one meal by ID
     app.get("/details", async function(req, res){
         try{
@@ -107,6 +132,31 @@ module.exports = function(app){
     // update last time eat
     app.post("/eatmeal", function(req, res){
         databaseHandler.updateEaten(req.query.id)
+        res.send(200)
+    })
+
+    // update last time eat
+    app.post("/removeEaten", function(req, res){
+        try{
+            const body = req.body
+            const uniqueid = body.uniqueid
+            const mealId = body.mealId
+            databaseHandler.removeEaten(mealId, uniqueid)
+            res.send(200)
+        }catch(err){
+            res.sendStatus(400)
+        }
+    })
+
+    // set Meal deleted = true
+    app.post("/removeMeal", function(req, res){
+            databaseHandler.deleteMeal(req.query.id)
+            res.send(200)
+        })
+
+    // set Meal deleted = false
+    app.post("/recoverMeal", function(req, res){
+        databaseHandler.removeDeleted(req.query.id)
         res.send(200)
     })
 
