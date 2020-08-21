@@ -139,7 +139,7 @@ module.exports = function(app){
     app.post("/removeEaten", function(req, res){
         try{
             const body = req.body
-            const uniqueid = body.uniqueid
+            const uniqueid = body.uniqueId
             const mealId = body.mealId
             databaseHandler.removeEaten(mealId, uniqueid)
             res.send(200)
