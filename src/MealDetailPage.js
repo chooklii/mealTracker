@@ -183,7 +183,7 @@ class MealDetailPage extends React.Component{
     }
 
     render(){
-        const {data, name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake} = this.state
+        const {data, name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal} = this.state
         if(loaded && data){
         return(
             <div id="main">

@@ -19,7 +19,7 @@ class RecommendationMainPage extends React.Component{
     }
 
     getRecommendations(){
-        axios.get("http://" + constants.IP_ADRESS + "/recommendations/work").then((response) => {
+        axios.get("http://" + constants.IP_ADRESS + "/recommendations/main").then((response) => {
             try{
                 const data = response.data
                 this.setState({
