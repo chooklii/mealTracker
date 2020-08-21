@@ -6,12 +6,11 @@ class HomePage extends React.Component{
     render(){
         return(
             <div id="main">
-                <h1> Hier ist die noch leere Startseite</h1>
-                <div>Features die man in naher Zukunft noch erwarten kann, sobald ich Lust habe:</div>
-                <div>- Löschen von Menüs</div>
-                <div>- Ranking nach Anzahl gekocht</div>
-                <div>- Feedback für erfolgreiches Speichern</div>
-                <div>- Wochenrückblick</div>
+                <h1>How this works:</h1>
+                <li>Hauptgerichte und Nachtische hinzufügen</li>
+                <li>Täglich konsumierte Essen pflegen</li>
+                <li>Tägliche Empfehlungen bekommen</li>
+                <div id="homeImage"></div>
 		</div>
         )
     }

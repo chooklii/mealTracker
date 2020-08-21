@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
  function getAllMeals(){
     return new Promise(function(resolve, reject){
             connection.query(
-                "SELECT * FROM mealtracker.meals", function(err, results, fields){
+                "SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId", function(err, results, fields){
                 if(err) reject(err)
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -23,7 +23,8 @@ const connection = mysql.createConnection({
 function getMealsByName(name){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals WHERE LOWER(name) like LOWER('%${name}%')`, function(err, results, fields){
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            WHERE LOWER(name) like LOWER('%${name}%')`, function(err, results, fields){
                 if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -36,7 +37,8 @@ function getMealsByName(name){
 
 function getMealDetails(id){
     return new Promise(function(resolve, reject){
-        connection.query(`SELECT * from mealtracker.meals WHERE id = ${id}`, function(err, results, fields){
+        connection.query(`SELECT * from mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+        WHERE id = ${id}`, function(err, results, fields){
             if(err) reject(err);
             else{
                 resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -123,7 +125,10 @@ function updateEaten(id){
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount +1 : 1
                 connection.query(
-                    `UPDATE mealtracker.meals SET amount = ${newAmount},last_time = current_timestamp WHERE id = ${id}`
+                    `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${id}`
+                )
+                connection.query(
+                    `INSERT INTO mealtracker.eaten (mealId) VALUES (${id})`
                 )
             }
         )

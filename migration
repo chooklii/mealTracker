@@ -3,7 +3,6 @@ CREATE TABLE meal (
     name varchar(255) NOT NULL,
     desc varchar(255),
     amount int(11),
-    last_time TIMESTAMP Not Null Default Current_Timestamp,
     januar Boolean default true,
     februar Boolean default true,
     march Boolean default true,
@@ -18,4 +17,10 @@ CREATE TABLE meal (
     december Boolean default true,
     cake Boolean default false,
     main_dish Boolean default true
+)
+
+CREATE TABLE eaten(
+    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    mealId int(11) NOT NULL,
+    time TIMESTAMP Not Null Default Current_Timestamp,
 )

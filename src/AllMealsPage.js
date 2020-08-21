@@ -2,7 +2,8 @@ import React from "react"
 import axios from "axios";
 import constants from "../config.js"
 import {getDateFromTimestamp, getQueryStringValue} from "./helper"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBirthdayCake, faUtensils } from '@fortawesome/free-solid-svg-icons'
 
 
 class AllMealsPage extends React.Component{
@@ -85,7 +86,11 @@ class AllMealsPage extends React.Component{
                 <div id="firstLineRecommendationPage">
 
                     <div id="upperBoxRecommendationPage">
-                    <div id="nameMealRecommendationPage">{meal.name}</div>
+
+                    <div id="headingAndLogoAllMealsPage">
+                        <div id="logoAllMealsPage">{meal.cake ? <FontAwesomeIcon icon={faBirthdayCake} /> : <FontAwesomeIcon icon={faUtensils} />}</div>
+                    <div id="nameMealRecommendationPage">  {meal.name}</div>
+                    </div>
                     <div >{meal.description}</div>
                     </div>
                     <button id="eatButtonRecommendationPage" type="button" onClick={() => eatMeanu(meal.id)}>essen</button>

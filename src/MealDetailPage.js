@@ -143,8 +143,10 @@ class MealDetailPage extends React.Component{
     navigateBack(){
         const {lastPage,searchQuery} = this.state
         const origin = window.location.origin
-        if(lastPage === "recommendation"){
-            window.location.href = origin + "/recommend"
+        if(lastPage === "recommendationMain"){
+            window.location.href = origin + "/recommend/main"
+        }else if(lastPage === "recommendationCake"){
+            window.location.href = origin + "/recommend/cake"
         }else if(lastPage === "allMeals"){
             if(searchQuery){
                 window.location.href = origin + "/allMeal?query="+searchQuery

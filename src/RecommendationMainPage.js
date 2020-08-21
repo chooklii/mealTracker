@@ -39,7 +39,7 @@ class RecommendationMainPage extends React.Component{
     }
 
     detailsMenu(id){
-        window.location.href = origin + "/meal?id="+id+"&last=recommendation"
+        window.location.href = origin + "/meal?id="+id+"&last=recommendationMain"
     }
 
 
