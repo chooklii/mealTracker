@@ -72,13 +72,13 @@ function getRecommendationCake(currentMonth){
     })
 }
 
-function createNewMeal(name, description, months){
+function createNewMeal(name, description, months, cake, main){
     try{
         connection.query(
             `INSERT INTO mealtracker.meals
-            (name, description, januar, februar, march, april, mai, juni, july, august, september, october, november, december)
+            (name, description, januar, februar, march, april, mai, juni, july, august, september, october, november, december, cake, main_dish)
             VALUES( '${name}', '${description}', ${months.januar}, ${months.februar}, ${months.march}, ${months.april}, ${months.mai},
-            ${months.juni}, ${months.july}, ${months.august}, ${months.september}, ${months.october}, ${months.november}, ${months.december})`
+            ${months.juni}, ${months.july}, ${months.august}, ${months.september}, ${months.october}, ${months.november}, ${months.december}, ${cake}, ${main})`
         )
     }catch(err){
         console.log(err)
@@ -86,7 +86,7 @@ function createNewMeal(name, description, months){
 
 }
 
-function updateMeal(name, description, id, months){
+function updateMeal(name, description, id, months, cake, main){
     try{
         connection.query(
             `UPDATE mealtracker.meals SET
@@ -103,7 +103,9 @@ function updateMeal(name, description, id, months){
             september = ${months.september},
             october = ${months.october},
             november = ${months.november},
-            december = ${months.december}
+            december = ${months.december},
+            cake = ${cake},
+            main_dish = ${main}
             WHERE id = ${id}`
         )
     }catch(err){

@@ -15,5 +15,7 @@ CREATE TABLE meal (
     september Boolean default true,
     october Boolean default true,
     november Boolean default true,
-    december Boolean default true
+    december Boolean default true,
+    cake Boolean default false,
+    main_dish Boolean default true
 )

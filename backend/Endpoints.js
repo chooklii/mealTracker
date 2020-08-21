@@ -76,8 +76,10 @@ module.exports = function(app){
         const body = req.body
         const name = body.name
         const description = body.description
+        const main = body.main,
+        const cake = body.cake
         const months = helper.setUpMonthJSON(body)
-        databaseHandler.createNewMeal(name, description, months)
+        databaseHandler.createNewMeal(name, description, months, cake, main)
         res.send(200)
         }catch(err){
             res.sendStatus(400)
@@ -91,8 +93,10 @@ module.exports = function(app){
             const name = body.name
             const description = body.description
             const id = body.id
+            const cake = body.cake
+            const main = body.main
             const months = helper.setUpMonthJSON(body)
-            databaseHandler.updateMeal(name, description, id, months)
+            databaseHandler.updateMeal(name, description, id, months, cake, main)
             res.send(200)
         }catch(err){
             res.sendStatus(400)
