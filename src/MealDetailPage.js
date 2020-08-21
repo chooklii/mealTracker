@@ -100,7 +100,7 @@ class MealDetailPage extends React.Component{
     }
 
     updateMenu(){
-        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, data, main} = this.state
+        const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, data, cake, main} = this.state
         const body = {
             name:name,
             description: description,
@@ -116,7 +116,9 @@ class MealDetailPage extends React.Component{
             september: september,
             october: october,
             november: november,
-            december: december
+            december: december,
+            cake: cake,
+            main: main
         }
         axios.post("http://"+ constants.IP_ADRESS + "/updateMeal", body).then((response) => {
             this.loadData(id)
