@@ -63,7 +63,7 @@ function getDeletedMealsByName(name){
 function getMealDetails(id){
     return new Promise(function(resolve, reject){
         connection.query(`SELECT * from mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
-        WHERE deleted = false mealtracker.meals.id = ${id}`, function(err, results, fields){
+        WHERE deleted = false AND mealtracker.meals.id = ${id}`, function(err, results, fields){
             if(err) reject(err);
             else{
                 resolve(Object.values(JSON.parse(JSON.stringify(results))))
