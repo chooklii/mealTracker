@@ -173,7 +173,7 @@ function removeEaten(mealId, uniqueId){
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount -1 : 0
                 connection.query(
-                    `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${id}`
+                    `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${mealId}`
                 )
                 connection.query(
                     `DELETE FROM mealtracker.eaten WHERE uniqueId = ${uniqueId}`
