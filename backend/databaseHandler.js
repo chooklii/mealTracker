@@ -36,7 +36,7 @@ function getMealsByName(name){
     return new Promise(function(resolve, reject){
         connection.query(
             `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId
-            WHERE deleted = false AND LOWER(name) like LOWER('%${name}%')`, function(err, results, fields){
+            WHERE deleted = false AND LOWER(name) like LOWER('%${name}%') ORDER BY mealtracker.meals.name`, function(err, results, fields){
                 if(err) reject(err);
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
