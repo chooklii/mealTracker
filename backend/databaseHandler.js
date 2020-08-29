@@ -189,20 +189,26 @@ function removeEaten(mealId, uniqueId){
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount -1 : 0
                 connection.query(`DELETE FROM mealtracker.eaten WHERE uniqueId = ${uniqueId}`)
-        connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${id}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
-                if(err) throw err;
-                const resultGetNewId = Object.values(JSON.parse(JSON.stringify(results)))
-                const newLastEatenId = resultGetNewId[0].uniqueId
+                const newLastEatenId = getNewLastEatenId(mealId)
+                console.log(newLastEatenId, newAmount)
                 connection.query(
                     `UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${newLastEatenId} WHERE id = ${mealId}`
                 )
             }
         )
-    })
     }catch(err){
         console.log(err)
     }
 }
+
+function getNewLastEatenId(mealId){
+    connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${mealId}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
+        if(err) throw err;
+        const resultGetNewId = Object.values(JSON.parse(JSON.stringify(results)))
+        const newLastEatenId = resultGetNewId[0].uniqueId
+        return newLastEatenId
+        })
+    }
 
 function deleteMeal(id){
     try{
