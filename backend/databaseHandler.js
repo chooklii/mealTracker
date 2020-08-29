@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
  function getAllMeals(){
     return new Promise(function(resolve, reject){
             connection.query(
-                "SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId WHERE deleted = false", function(err, results, fields){
+                "SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId WHERE deleted = false", function(err, results, fields){
                 if(err) reject(err)
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
 function getAllDeletedMeals(){
     return new Promise(function(resolve, reject){
             connection.query(
-                "SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId WHERE deleted = true", function(err, results, fields){
+                "SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId WHERE deleted = true", function(err, results, fields){
                 if(err) reject(err)
                 else{
                     resolve(Object.values(JSON.parse(JSON.stringify(results))))
@@ -35,7 +35,7 @@ function getAllDeletedMeals(){
 function getMealsByName(name){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId
             WHERE deleted = false AND LOWER(name) like LOWER('%${name}%')`, function(err, results, fields){
                 if(err) reject(err);
                 else{
@@ -49,7 +49,7 @@ function getMealsByName(name){
 function getDeletedMealsByName(name){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId
             WHERE deleted = true AND LOWER(name) like LOWER('%${name}%')`, function(err, results, fields){
                 if(err) reject(err);
                 else{
@@ -62,7 +62,7 @@ function getDeletedMealsByName(name){
 
 function getMealDetails(id){
     return new Promise(function(resolve, reject){
-        connection.query(`SELECT * from mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+        connection.query(`SELECT * from mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId
         WHERE deleted = false AND mealtracker.meals.id = ${id}`, function(err, results, fields){
             if(err) reject(err);
             else{
@@ -76,7 +76,7 @@ function getMealDetails(id){
 function getRecommendationMain(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId
             WHERE ${currentMonth} is true AND main_dish is true AND deleted = false ORDER BY mealtracker.eaten.time`, function(err, results, fields){
                 if(err) reject(err);
                 else{
@@ -90,7 +90,7 @@ function getRecommendationMain(currentMonth){
 function getRecommendationCake(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId
             WHERE ${currentMonth} is true AND cake is true AND deleted = false ORDER BY mealtracker.eaten.time`, function(err, results, fields){
                 if(err) reject(err);
                 else{
@@ -104,7 +104,7 @@ function getRecommendationCake(currentMonth){
 function getRecommendationWork(currentMonth){
     return new Promise(function(resolve, reject){
         connection.query(
-            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.id = mealtracker.eaten.mealId
+            `SELECT * FROM mealtracker.meals LEFT JOIN mealtracker.eaten ON mealtracker.meals.last_eaten_id = mealtracker.eaten.uniqueId
             WHERE ${currentMonth} is true AND workmeal is true AND deleted = false ORDER BY mealtracker.eaten.time`, function(err, results, fields){
                 if(err) reject(err);
                 else{
@@ -160,20 +160,21 @@ function updateMeal(name, description, id, months, cake, main, workmeal){
 function updateEaten(id){
     try{
         var newAmount = 1
-        connection.query(
-            `SELECT amount FROM mealtracker.meals WHERE id = '${id}'`, function(err, results, fields){
+        connection.query(`SELECT amount FROM mealtracker.meals WHERE id = '${id}'`, function(err, results, fields){
+            if(err) throw err;
+            const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
+            const amount = resultArray[0].amount
+            newAmount = amount != null ? amount +1 : 1
+            connection.query( `INSERT INTO mealtracker.eaten (mealId) VALUES (${id})`)
+            connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${id}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
                 if(err) throw err;
-                const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
-                const amount = resultArray[0].amount
-                newAmount = amount != null ? amount +1 : 1
+                const resultGetNewId = Object.values(JSON.parse(JSON.stringify(results)))
+                const uniqueId = resultGetNewId[0].uniqueId
                 connection.query(
-                    `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${id}`
-                )
-                connection.query(
-                    `INSERT INTO mealtracker.eaten (mealId) VALUES (${id})`
-                )
-            }
-        )
+                    `UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${uniqueId} WHERE id = ${id}`
+                 )
+            })
+        })
     }catch(err){
         console.log(err)
     }
@@ -187,14 +188,17 @@ function removeEaten(mealId, uniqueId){
                 const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount -1 : 0
+                connection.query(`DELETE FROM mealtracker.eaten WHERE uniqueId = ${uniqueId}`)
+        connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${id}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
+                if(err) throw err;
+                const resultGetNewId = Object.values(JSON.parse(JSON.stringify(results)))
+                const newLastEatenId = resultGetNewId[0].uniqueId
                 connection.query(
-                    `UPDATE mealtracker.meals SET amount = ${newAmount} WHERE id = ${mealId}`
-                )
-                connection.query(
-                    `DELETE FROM mealtracker.eaten WHERE uniqueId = ${uniqueId}`
+                    `UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${newLastEatenId} WHERE id = ${mealId}`
                 )
             }
         )
+    })
     }catch(err){
         console.log(err)
     }

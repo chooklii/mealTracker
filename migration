@@ -18,7 +18,8 @@ CREATE TABLE meal (
     cake Boolean default false,
     main_dish Boolean default true,
     deleted Boolean default false,
-    workmeal Boolean default false
+    workmeal Boolean default false,
+    last_eaten_id = int(11)
 )
 
 CREATE TABLE eaten(
