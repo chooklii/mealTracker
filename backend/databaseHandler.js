@@ -167,7 +167,6 @@ function updateEaten(id){
             newAmount = amount != null ? amount +1 : 1
             connection.query( `INSERT INTO mealtracker.eaten (mealId) VALUES (${id})`)
             const uniqueId = await getNewLastEatenId(id)
-            console.log(uniqueId)
             connection.query(`UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${uniqueId} WHERE id = ${id}`)
             })
         
@@ -186,7 +185,6 @@ function removeEaten(mealId, uniqueId){
                 newAmount = amount != null ? amount -1 : 0
                 connection.query(`DELETE FROM mealtracker.eaten WHERE uniqueId = ${uniqueId}`)
                 const newLastEatenId = await getNewLastEatenId(mealId)
-                console.log(newLastEatenId, newAmount)
                 connection.query(
                     `UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${newLastEatenId} WHERE id = ${mealId}`
                 )
