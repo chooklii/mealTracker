@@ -166,15 +166,10 @@ function updateEaten(id){
             const amount = resultArray[0].amount
             newAmount = amount != null ? amount +1 : 1
             connection.query( `INSERT INTO mealtracker.eaten (mealId) VALUES (${id})`)
-            connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${id}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
-                if(err) throw err;
-                const resultGetNewId = Object.values(JSON.parse(JSON.stringify(results)))
-                const uniqueId = resultGetNewId[0].uniqueId
-                connection.query(
-                    `UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${uniqueId} WHERE id = ${id}`
-                 )
+            const uniqueId = getNewLastEatenId(id)
+            connection.query(`UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${uniqueId} WHERE id = ${id}`)
             })
-        })
+        
     }catch(err){
         console.log(err)
     }
@@ -204,9 +199,16 @@ function removeEaten(mealId, uniqueId){
 function getNewLastEatenId(mealId){
     connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${mealId}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
         if(err) throw err;
+        try{
         const resultGetNewId = Object.values(JSON.parse(JSON.stringify(results)))
         const newLastEatenId = resultGetNewId[0].uniqueId
         return newLastEatenId
+        }catch(err){
+            if(err instanceof TypeError){
+                return null
+            }else
+            throw err
+        }
         })
     }
 
