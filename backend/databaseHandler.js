@@ -157,7 +157,7 @@ function updateMeal(name, description, id, months, cake, main, workmeal){
     }
 }
 
-function updateEaten(id){
+async function updateEaten(id){
     try{
         var newAmount = 1
         connection.query(`SELECT amount FROM mealtracker.meals WHERE id = '${id}'`, function(err, results, fields){
