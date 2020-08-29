@@ -166,7 +166,8 @@ function updateEaten(id){
             const amount = resultArray[0].amount
             newAmount = amount != null ? amount +1 : 1
             connection.query( `INSERT INTO mealtracker.eaten (mealId) VALUES (${id})`)
-            const uniqueId = getNewLastEatenId(id)
+            const uniqueId = await getNewLastEatenId(id)
+            console.log(uniqueId)
             connection.query(`UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${uniqueId} WHERE id = ${id}`)
             })
         
@@ -196,7 +197,7 @@ function removeEaten(mealId, uniqueId){
     }
 }
 
-function getNewLastEatenId(mealId){
+async function getNewLastEatenId(mealId){
     connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${mealId}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
         if(err) throw err;
         try{
