@@ -198,20 +198,22 @@ function removeEaten(mealId, uniqueId){
 }
 
 async function getNewLastEatenId(mealId){
-    connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${mealId}' ORDER BY uniqueId DESC LIMIT 1`, function(err, results, fields){
+    return new Promise(function(resolve, reject){
+    connection.query(`SELECT * from mealtracker.eaten WHERE mealId = '${mealId}' ORDER BY uniqueId DESC LIMIT 1`, async function(err, results, fields){
         if(err) throw err;
         try{
         const resultGetNewId = Object.values(JSON.parse(JSON.stringify(results)))
         const newLastEatenId = resultGetNewId[0].uniqueId
-        return newLastEatenId
+        resolve(newLastEatenId)
         }catch(err){
             if(err instanceof TypeError){
-                return null
+                resolve(null)
             }else
-            throw err
+            reject(err)
         }
         })
-    }
+    })
+}
 
 function deleteMeal(id){
     try{
