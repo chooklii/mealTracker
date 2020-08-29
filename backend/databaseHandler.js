@@ -157,10 +157,10 @@ function updateMeal(name, description, id, months, cake, main, workmeal){
     }
 }
 
-async function updateEaten(id){
+function updateEaten(id){
     try{
         var newAmount = 1
-        connection.query(`SELECT amount FROM mealtracker.meals WHERE id = '${id}'`, function(err, results, fields){
+        connection.query(`SELECT amount FROM mealtracker.meals WHERE id = '${id}'`, async function(err, results, fields){
             if(err) throw err;
             const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
             const amount = resultArray[0].amount
@@ -179,13 +179,13 @@ async function updateEaten(id){
 function removeEaten(mealId, uniqueId){
     try{
         connection.query(
-            `SELECT amount FROM mealtracker.meals WHERE id = '${mealId}'`, function(err, results, fields){
+            `SELECT amount FROM mealtracker.meals WHERE id = '${mealId}'`, async function(err, results, fields){
                 if(err) throw err;
                 const resultArray = Object.values(JSON.parse(JSON.stringify(results)))
                 const amount = resultArray[0].amount
                 newAmount = amount != null ? amount -1 : 0
                 connection.query(`DELETE FROM mealtracker.eaten WHERE uniqueId = ${uniqueId}`)
-                const newLastEatenId = getNewLastEatenId(mealId)
+                const newLastEatenId = await getNewLastEatenId(mealId)
                 console.log(newLastEatenId, newAmount)
                 connection.query(
                     `UPDATE mealtracker.meals SET amount = ${newAmount}, last_eaten_id = ${newLastEatenId} WHERE id = ${mealId}`
