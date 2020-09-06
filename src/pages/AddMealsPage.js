@@ -1,6 +1,6 @@
 import React from "react"
 import axios from "axios";
-import constants from "../config.js"
+import constants from "../../config.js"
 
 class AddMealsPage extends React.Component{
     constructor(props){
@@ -88,7 +88,7 @@ class AddMealsPage extends React.Component{
 
 
     render(){
-        const {name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal} = this.state
+        const {januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal} = this.state
         return(
             <div id="main">
                 <div>

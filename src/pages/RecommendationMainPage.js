@@ -1,7 +1,7 @@
 import React from "react"
 import axios from "axios";
-import constants from "../config.js"
-import {getDateFromTimestamp} from "./helper"
+import constants from "../../config.js"
+import {getDateFromTimestamp} from "../helper"
 
 class RecommendationMainPage extends React.Component{
     constructor(props){

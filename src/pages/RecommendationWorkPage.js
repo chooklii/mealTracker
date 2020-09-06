@@ -1,9 +1,9 @@
 import React from "react"
 import axios from "axios";
-import constants from "../config.js"
-import {getDateFromTimestamp} from "./helper"
+import constants from "../../config.js"
+import {getDateFromTimestamp} from "../helper"
 
-class RecommendationCakePage extends React.Component{
+class RecommendationWorkPage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -19,7 +19,7 @@ class RecommendationCakePage extends React.Component{
     }
 
     getRecommendations(){
-        axios.get("http://" + constants.IP_ADRESS + "/recommendations/cake").then((response) => {
+        axios.get("http://" + constants.IP_ADRESS + "/recommendations/work").then((response) => {
             try{
                 const data = response.data
                 this.setState({
@@ -39,7 +39,7 @@ class RecommendationCakePage extends React.Component{
     }
 
     detailsMenu(id){
-        window.location.href = origin + "/meal?id="+id+"&last=recommendationCake"
+        window.location.href = origin + "/meal?id="+id+"&last=recommendationMain"
     }
 
 
@@ -73,7 +73,7 @@ class RecommendationCakePage extends React.Component{
         if(loaded){
         return(
             <div id="main">
-                <div id="headingRecommendationPage">Empfehlungen Nachtisch: </div>
+                <div id="headingRecommendationPage">Empfehlungen Arbeitsessen: </div>
                 {this.renderMealBox(
                     data,
                     (id) => this.eatMenu(id),
@@ -85,4 +85,4 @@ class RecommendationCakePage extends React.Component{
 
 }
 
-export default RecommendationCakePage
+export default RecommendationWorkPage

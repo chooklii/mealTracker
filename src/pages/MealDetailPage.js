@@ -1,10 +1,10 @@
 import React from "react"
 import axios from "axios";
-import constants from "../config.js"
-import {getDateFromTimestamp} from "./helper"
+import constants from "../../config.js"
+import {getDateFromTimestamp} from "../helper"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faSave, faBackspace, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
-import {getQueryStringValue} from "./helper"
+import {getQueryStringValue} from "../helper"
 
 class MealDetailPage extends React.Component{
     constructor(props){

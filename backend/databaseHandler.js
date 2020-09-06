@@ -1,5 +1,4 @@
 const config = require("../config")
-
 const mysql = require("mysql")
 const { parse } = require("@babel/core")
 const connection = mysql.createConnection({

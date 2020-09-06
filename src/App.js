@@ -1,14 +1,14 @@
 import React from 'react';
-import AddMealsPage from "./AddMealsPage"
-import AllMealsPage from "./AllMealsPage"
-import HomePage from "./HomePage"
-import RecommendationMainPage from "./RecommendationMainPage"
-import RecommendationCakePage from "./RecommendationCakePage"
+import AddMealsPage from "./pages/AddMealsPage"
+import AllMealsPage from "./pages/AllMealsPage"
+import HomePage from "./pages/HomePage"
+import RecommendationMainPage from "./pages/RecommendationMainPage"
+import RecommendationCakePage from "./pages/RecommendationCakePage"
+import MealDetailPage from "./pages/MealDetailPage"
+import DeletedMealsPage from "./pages/DeletedMealsPage"
+import RecommendationWorkPage from "./pages/RecommendationWorkPage"
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 import Header from "./Header"
-import MealDetailPage from "./MealDetailPage"
-import DeletedMealsPage from "./DeletedMealsPage"
-import RecommendationWorkPage from "./RecommendationWorkPage"
 
 class App extends React.Component{
 
