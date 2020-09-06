@@ -4,6 +4,7 @@ What is this?
 
 - This is a React App with Express Backend used to track all of your meals. Add meals and data about them, if you eat a meal klick "eat" and the app will recommend you meals you have not eaten in a long time. 
 
+Note: The Design of this Project is only optimised for mobile-phones, it works on Desktop as well but can look a bit strange at times. 
 ## first Time: 
 
 Basic Requirement: Install node.js and an mysql db, if you need help use Google Tutorials
