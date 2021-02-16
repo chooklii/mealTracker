@@ -4,6 +4,10 @@
     Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
 
+body{
+	width: 100%;
+}
+
 .header-container{
 	text-align: center;
 }
@@ -448,15 +452,13 @@
 	#MobileHeading{
 		color: white;
 		font-size: large;
-		padding: 10px;
 		text-align: center;
 	}
 
 	.mobileMenuPoint{
 		cursor: pointer;
 		height: 50px;
-		padding: 15px;
-
+		list-style-type: none;
 	}
 
 	.mobileMenuLink{
