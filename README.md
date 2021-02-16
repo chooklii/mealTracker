@@ -7,13 +7,13 @@ What is this?
 - You are able to distinguish between Main-Meals and Snacks. You are also able to add months where you want to eat the meal or if the meal is feasable to eat 
 when working or to take it with yourself to your workplace.
 
-|![Image Home](public/Images/newmenu.png) |
+|![Image Home](public/images/newmenu.png) |
 |:--:|
 | *Home |
 
 - Once you have added a menu you will be able to insert the fact, that you have eaten it today. Afterwards you are able to see how often you have eaten each menu but you also get recommendations based on months and menus you havent eaten in a long time.
 
-|![Image Home](public/Images/allmenus.png) |
+|![Image Home](public/images/allmenus.png) |
 |:--:|
 | *Home |
 
