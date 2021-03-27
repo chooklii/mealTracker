@@ -21,6 +21,10 @@ body{
 	background-color: white;
 }
 
+.alert_placeholder{
+	min-height: 40px;
+}
+
 #headingDetailPage{
 	font-size: xx-large;
 	text-align: center;
@@ -78,7 +82,7 @@ body{
 	width: 80%;
 	margin-left: 10%;
 	cursor: pointer;
-	margin-top: 78px;
+	margin-top: 20px;
 }
 
 #eatButtonDetailPage{
@@ -132,6 +136,7 @@ body{
 
 .detailPageCheckboxMealType{
 	zoom: 1.5;
+	min-height: 25px;
 	margin-top: 20px
 }
 

@@ -4,7 +4,9 @@ import constants from "../../config.js"
 import {getDateFromTimestamp, getQueryStringValue} from "../helper"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBirthdayCake, faUtensils } from '@fortawesome/free-solid-svg-icons'
+import {Alert} from "antd"
 
+const keyGenerator = () => "_" + Math.random().toString(36).substr(2, 9);
 
 class AllMealsPage extends React.Component{
     constructor(props){
@@ -12,7 +14,10 @@ class AllMealsPage extends React.Component{
         this.state = {
             data: [],
             loaded: false,
-            searchQuery: ""
+            searchQuery: "",
+            showSuccessAlert: false,
+            errorMessage: "",
+            showErrorAlert: false
         }
         this.eatMenu = this.eatMenu.bind(this);
         this.detailsMenu = this.detailsMenu.bind(this);
@@ -21,8 +26,15 @@ class AllMealsPage extends React.Component{
     }
 
     componentDidMount(){
+        this.updateMealData()
+    }
+
+    updateMealData(){
         const searchQuery = getQueryStringValue("query")
-        if(searchQuery){
+        if(this.state.searchQuery){
+            this.getMealsByName(this.state.searchQuery)
+        }
+        else if(searchQuery){
             this.setState({searchQuery: searchQuery})
             this.getMealsByName(searchQuery)
         }
@@ -35,9 +47,14 @@ class AllMealsPage extends React.Component{
                 const data = response.data
                 this.setState({
                     loaded: true,
-                    data: data
+                    data: data,
                 })
     }catch(err){
+        this.setState({
+            showErrorAlert: true,
+            showSuccessAlert: false,
+            errorMessage: "Daten konnten nicht geladen werden"
+        })
         console.error(err)
 
     }})
@@ -66,7 +83,19 @@ class AllMealsPage extends React.Component{
 
     eatMenu(id){
         axios.post("http://" + constants.IP_ADRESS + "/eatMeal?id=" + id).then((response) => {
-            this.getMeals()
+            if(response.status === 200){
+                this.setState({
+                    showSuccessAlert: true,
+                    showErrorAlert: false
+                })
+                this.updateMealData()
+            }else{
+                this.setState({
+                    showErrorAlert: true,
+                    showSuccessAlert: false,
+                    errorMessage: "Essen konnte nicht geupdated werden"
+                })
+            }
         })
     }
 
@@ -82,7 +111,7 @@ class AllMealsPage extends React.Component{
     renderMealBox(meals, eatMeanu, detailsMeanu){
         return meals.map(function(meal){
         return(
-            <div id="oneMealRecommendationPage">
+            <div key={keyGenerator()} id="oneMealRecommendationPage">
                 <div id="firstLineRecommendationPage">
 
                     <div id="upperBoxRecommendationPage">
@@ -109,10 +138,30 @@ class AllMealsPage extends React.Component{
 
 
     render(){
-        const {loaded, data, searchQuery} = this.state
+        const {loaded, data, searchQuery, showErrorAlert, showSuccessAlert, errorMessage} = this.state
         if(loaded){
         return(
             <div id="main">
+                {showSuccessAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message="Essen geupdated"
+                    type="success"
+                    showIcon
+                    afterClose={() => this.setState({showSuccessAlert: false})}
+                    closable
+                />
+                }
+                {showErrorAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message={errorMessage}
+                    type="error"
+                    afterClose={() => this.setState({showErrorAlert: false})}
+                    showIcon
+                    closable
+                />
+                }
                 <div id="headingRecommendationPage">Alle Essen: </div>
                     <div>
                         <input id="searchFieldAllMealPage" onChange={this.handleInputChangeTextField} type="text" name="description" defaultValue={searchQuery} placeholder="Name suchen"/>

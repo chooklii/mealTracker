@@ -3,6 +3,7 @@ import axios from "axios";
 import constants from "../../config.js"
 import {getDateFromTimestamp} from "../helper"
 
+const keyGenerator = () => "_" + Math.random().toString(36).substr(2, 9);
 class RecommendationWorkPage extends React.Component{
     constructor(props){
         super(props);
@@ -46,7 +47,7 @@ class RecommendationWorkPage extends React.Component{
     renderMealBox(meals, eatMeanu, detailsMeanu){
         return meals.map(function(meal){
         return(
-            <div id="oneMealRecommendationPage">
+            <div key={keyGenerator()} id="oneMealRecommendationPage">
                 <div id="firstLineRecommendationPage">
 
                     <div id="upperBoxRecommendationPage">

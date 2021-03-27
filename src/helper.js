@@ -1,5 +1,3 @@
-import React from "react"
-
 export function getDateFromTimestamp(timestamp){
     const year = timestamp.substring(0,4)
     const month = timestamp.substring(5,7)
