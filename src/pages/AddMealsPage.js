@@ -1,7 +1,8 @@
 import React from "react"
 import axios from "axios";
 import constants from "../../config.js"
-
+import {Alert} from "antd"
+import {getQueryStringValue} from "../helper"
 class AddMealsPage extends React.Component{
     constructor(props){
         super(props);
@@ -22,13 +23,24 @@ class AddMealsPage extends React.Component{
             december: true,
             main: true,
             cake: false,
-            workmeal: true
+            workmeal: true,
+            showSuccessAlert: false,
+            showErrorAlert: false,
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleInputChangeTextField = this.handleInputChangeTextField.bind(this);
         this.handleCakeMainChange = this.handleCakeMainChange.bind(this);
     }
+
+    componentDidMount(){
+        if(getQueryStringValue("created")){
+            this.setState({
+                showSuccessAlert: true
+            })
+        }
+    }
+
 
     createMenu(){
         const {id, description, name, januar, februar, march, april, mai, juni, july, august, september, october, november, december, cake, main, workmeal} = this.state
@@ -53,7 +65,14 @@ class AddMealsPage extends React.Component{
             workmeal: workmeal
         }
         axios.post("http://"+ constants.IP_ADRESS + "/meal", body).then((response) => {
-            location.reload()
+            if(response.status === 200){
+                window.location.href = origin + "/addMeal?created=true"
+            }else{
+                this.setState({
+                    showErrorAlert: true,
+                    showSuccessAlert: false
+                })
+            }
         })
     }
 
@@ -88,9 +107,29 @@ class AddMealsPage extends React.Component{
 
 
     render(){
-        const {januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal} = this.state
+        const {januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal, showErrorAlert, showSuccessAlert} = this.state
         return(
             <div id="main">
+                {showSuccessAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message="Essen wurde erfolgreich erstellt"
+                    type="success"
+                    showIcon
+                    afterClose={() => this.setState({showSuccessAlert: false})}
+                    closable
+                />
+                }
+                {showErrorAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message="Essen konnte nicht erstellt werden"
+                    type="error"
+                    afterClose={() => this.setState({showErrorAlert: false})}
+                    showIcon
+                    closable
+                />
+                }
                 <div>
                 <div id="headingCreatePage">Neues Menü erstellen:</div>
                     <div>

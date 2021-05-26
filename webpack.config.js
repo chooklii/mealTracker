@@ -1,7 +1,31 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+
+// add paths for subdomains here
+const paths = [
+  "addMeal",
+  "recommend/main",
+  "recommend/cake",
+  "recommend/work",
+  "meal",
+  "deletedMeals"
+]
+
+let multipleHtmlPlugins = paths.map(name => {
+  return new HtmlWebPackPlugin({
+    template: "./static/index.html",
+    filename: `../docs/${name}/index.html`,
+    chunks: ["bundle"]
+  })
+});
 
 module.exports = {
+    devServer: {
+      contentBase: path.join(__dirname, 'docs'),
+      compress: true,
+      port: 9000
+    },
     module: {
       rules: [
         {
@@ -16,18 +40,41 @@ module.exports = {
           }
         },
         {
+          test: /\.(ttf)$/,
+          use: {
+            loader: "url-loader"
+          }
+        },
+        {
           test: /\.css$/i,
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
       ]
     },
+    entry: {
+      bundle: "./src/index.js",
+    },
+    output: {
+      filename: '[name].js',
+      path: path.resolve(__dirname, "docs")
+    },
     plugins: [
         new HtmlWebPackPlugin({
-          template: "./public/index.html",
-          filename: "./index.html"
+          template: "./static/index.html",
+          filename: "../docs/index.html",
+          chunks: ["bundle"]
+        }),
+        new HtmlWebPackPlugin({
+          template: "./static/index.html",
+          filename: "../docs/404.html",
+          chunks: ["bundle"]
+        }),
+        new HtmlWebPackPlugin({
+          favicon: './static/favicon.ico'
         }),
         new MiniCssExtractPlugin({
-          filename: "../public/main.css"
+          filename: '[name].style.css',
+          path: path.resolve(__dirname, "docs")
         })
-      ]
+      ].concat(multipleHtmlPlugins),
   };

@@ -5,6 +5,8 @@ import {getDateFromTimestamp} from "../helper"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faSave, faBackspace, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import {getQueryStringValue} from "../helper"
+import {Alert} from "antd"
+
 
 class MealDetailPage extends React.Component{
     constructor(props){
@@ -14,7 +16,11 @@ class MealDetailPage extends React.Component{
             loaded: false,
             edit: false,
             id: 0,
-            searchQuery: null
+            searchQuery: null,
+            showErrorAlert: false,
+            showSuccessAlert: false,
+            sucessMessage: "",
+            errorMessage: ""
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -68,7 +74,10 @@ class MealDetailPage extends React.Component{
             catch(err){
                 console.error(err)
                 this.setState({
-                    loaded: true
+                    loaded: true,
+                    showErrorAlert: true,
+                    showSuccessAlert: false,
+                    errorMessage: "Essen konnte nicht geladen werden"
                 })
             }
         })
@@ -77,7 +86,20 @@ class MealDetailPage extends React.Component{
     eatMenu(){
         const mealId = this.state.id
         axios.post("http://" + constants.IP_ADRESS + "/eatMeal?id=" + mealId).then((response) => {
-            this.loadData(mealId)
+            if(response.status === 200){
+                this.setState({
+                    sucessMessage: "Essen wurde erfolgreich geupdated",
+                    showSuccessAlert: true,
+                    showErrorAlert: false
+                })
+                this.loadData(mealId)
+            }else{
+                this.setState({
+                    showErrorAlert: true,
+                    showSuccessAlert: false,
+                    errorMessage: "Essen konnte nicht geupdated werden"
+                })
+            }
         })
     }
 
@@ -89,7 +111,7 @@ class MealDetailPage extends React.Component{
             uniqueId: uniqueId
         }
         axios.post("http://"+ constants.IP_ADRESS + "/removeEaten", body).then((response) => {
-            this.loadData(mealId)
+
         })
     }
 
@@ -123,7 +145,20 @@ class MealDetailPage extends React.Component{
             workmeal: workmeal
         }
         axios.post("http://"+ constants.IP_ADRESS + "/updateMeal", body).then((response) => {
-            this.loadData(id)
+            if(response.status === 200){
+                this.setState({
+                    sucessMessage: "Essen wurde erfolgreich geupdated",
+                    showSuccessAlert: true,
+                    showErrorAlert: false
+                })
+                this.loadData(id)
+            }else{
+                this.setState({
+                    showErrorAlert: true,
+                    showSuccessAlert: false,
+                    errorMessage: "Essen konnte nicht geupdated werden"
+                })
+            }
         })
     }
 
@@ -173,20 +208,41 @@ class MealDetailPage extends React.Component{
             window.location.href = origin + "/recommend/cake"
         }else if(lastPage === "allMeals"){
             if(searchQuery){
-                window.location.href = origin + "/allMeal?query="+searchQuery
+                window.location.href = origin + "/?query="+searchQuery
             }
             else{
-                window.location.href = origin + "/allMeal"
+                window.location.href = origin + "/"
             }
         }
         else window.location.href = origin + "/"
     }
 
     render(){
-        const {data, name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal} = this.state
+        const {data, name, description, loaded, januar, februar, march, april, mai, juni, july, august, september, october, november, december, main, cake, workmeal,
+            sucessMessage, errorMessage, showSuccessAlert, showErrorAlert} = this.state
         if(loaded && data){
         return(
             <div id="main">
+                {showSuccessAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message={sucessMessage}
+                    type="success"
+                    showIcon
+                    afterClose={() => this.setState({showSuccessAlert: false})}
+                    closable
+                />
+                }
+                {showErrorAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message={errorMessage}
+                    type="error"
+                    afterClose={() => this.setState({showErrorAlert: false})}
+                    showIcon
+                    closable
+                />
+                }
                 {!this.state.edit &&
                 <div>
                     <div id="headingBoxDetailPage">
@@ -252,10 +308,12 @@ class MealDetailPage extends React.Component{
 
                 <div className="detailPageCheckboxMealType"> <input onChange={this.handleCakeMainChange} name="cake" type="checkbox" checked={cake}/> Kuchen </div>
 
+                <div className="detailPageCheckboxMealType"/>
+
                 <button id="updateButtonDetailPage" type="button" onClick={() => this.updateMenu()}>speichern</button>
 
                 <button id="removeMealButtonDetailPage" type="button" onClick={() => this.removeMeal()}>Löschen</button>
-                
+
 
                 </div>
                 </div>

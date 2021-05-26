@@ -1,18 +1,19 @@
 import React from "react"
 import axios from "axios";
 import constants from "../../config.js"
-import {getDateFromTimestamp, getQueryStringValue} from "../helper"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBirthdayCake, faUtensils } from '@fortawesome/free-solid-svg-icons'
+import {Alert} from "antd"
 
 
+const keyGenerator = () => "_" + Math.random().toString(36).substr(2, 9);
 class DeletedMealsPage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             data: [],
             loaded: false,
-            searchQuery: ""
+            searchQuery: "",
         }
         this.recoverMenu = this.recoverMenu.bind(this);
         this.handleInputChangeTextField = this.handleInputChangeTextField.bind(this);
@@ -53,7 +54,18 @@ class DeletedMealsPage extends React.Component{
 
     recoverMenu(mealId){
         axios.post("http://" + constants.IP_ADRESS + "/recoverMeal?id=" + mealId).then((response) => {
-            this.getMeals()
+            if(response.status === 200){
+                this.setState({
+                    showSuccessAlert: true,
+                    showErrorAlert: false
+                })
+                this.getMeals()
+            }else{
+                this.setState({
+                    showErrorAlert: true,
+                    showSuccessAlert: false
+                })
+            }
         })
     }
 
@@ -67,7 +79,7 @@ class DeletedMealsPage extends React.Component{
     renderMealBox(meals, recoverMenu ){
         return meals.map(function(meal){
         return(
-            <div id="oneMealRecommendationPage">
+            <div key={keyGenerator()} id="oneMealRecommendationPage">
                 <div id="firstLineDeletedPage">
 
                     <div id="upperBoxRecommendationPage">
@@ -88,10 +100,30 @@ class DeletedMealsPage extends React.Component{
 
 
     render(){
-        const {loaded, data, searchQuery} = this.state
+        const {loaded, data, searchQuery, showErrorAlert, showSuccessAlert} = this.state
         if(loaded){
         return(
             <div id="main">
+                {showSuccessAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message="Essen erfolgreich zurückgeholt"
+                    type="success"
+                    showIcon
+                    afterClose={() => this.setState({showSuccessAlert: false})}
+                    closable
+                />
+                }
+                {showErrorAlert &&
+                <Alert
+                    style={{position: "absolute", width: "95%"}}
+                    message="Essen konnte nicht zurückgeholt werden"
+                    type="error"
+                    afterClose={() => this.setState({showErrorAlert: false})}
+                    showIcon
+                    closable
+                />
+                }
                 <div id="headingRecommendationPage">Gelöschte Essen: </div>
                     <div>
                         <input id="searchFieldAllMealPage" onChange={this.handleInputChangeTextField} type="text" name="description" defaultValue={searchQuery} placeholder="Name suchen"/>
